@@ -27,6 +27,8 @@ using eShopSolution.Application.System.Languages;
 using eShopSolution.Application.Catolog.Category;
 using eShopSolution.Application.Common.Slide;
 using eShopSolution.Application.Catolog.Orders;
+using eShopSolution.Data.Repositories;
+using eShopSolution.Data.Repositories.Interface;
 
 namespace eShopSolution.BackendApi
 {
@@ -62,6 +64,9 @@ namespace eShopSolution.BackendApi
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<ILanguageService, LanguageService>();
             services.AddTransient<ISlideService, SlideService>();
+            services.AddTransient<IGenericRepository<Slide>, GenericRepository<Slide>>();
+            services.AddTransient<UnitOfWork>();
+
             //Register Validator each
             //services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
             //services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();
