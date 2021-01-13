@@ -1,14 +1,13 @@
 ﻿using eShopSolution.Data.EF;
-using eShopSolution.Data.Repositories.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
+using tShop.Repository.Interface;
 
-namespace eShopSolution.Data.Repositories
+namespace tShop.Repository
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
@@ -82,12 +81,7 @@ namespace eShopSolution.Data.Repositories
 
         public void Add(TEntity entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(int Id)
-        {
-            throw new NotImplementedException();
+            context.Add(entity);
         }
 
         public async Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
@@ -101,17 +95,22 @@ namespace eShopSolution.Data.Repositories
 
             if (orderBy != null)
             {
-                return orderBy(query).ToList();
+                return await orderBy(query).ToListAsync();
             }
             else
             {
-                return query.ToList();
+                return await query.ToListAsync();
             }
         }
 
         public async Task<TEntity> GetByIDAsync(object id)
         {
-            throw new NotImplementedException();
+            return await dbSet.FindAsync(id);
+        }
+
+        public IQueryable<TEntity> GetQuery()
+        {
+            return context.Set<TEntity>();
         }
     }
 }
