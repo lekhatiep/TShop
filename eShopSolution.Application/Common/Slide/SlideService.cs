@@ -1,11 +1,8 @@
-﻿using eShopSolution.Data.EF;
-using eShopSolution.Data.Repositories;
-using eShopSolution.ViewModels.Common;
-using eShopSolution.ViewModels.Common.Slide;
-using Microsoft.EntityFrameworkCore;
+﻿using eShopSolution.ViewModels.Common.Slide;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using tShop.Repository;
 
 namespace eShopSolution.Application.Common.Slide
 {
@@ -21,15 +18,6 @@ namespace eShopSolution.Application.Common.Slide
 
         public async Task<List<SlideViewModel>> GetAll()
         {
-            //var slides = await _eShopDbContext.Slides.OrderByDescending(x => x.SortOrder)
-            //    .Select(x => new SlideViewModel()
-            //    {
-            //        Id = x.Id,
-            //        Name = x.Name,
-            //        Description = x.Description,
-            //        Image = x.Image,
-            //        Url = x.Url
-            //    }).ToListAsync();
             var slideQuery = await _unitOfWork.SlideRepository.GetAsync(orderBy: x => x.OrderByDescending(x => x.SortOrder));
             var slides = slideQuery.Select(x => new SlideViewModel()
             {

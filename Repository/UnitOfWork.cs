@@ -1,26 +1,32 @@
 ﻿using eShopSolution.Data.EF;
 using eShopSolution.Data.Entities;
-using eShopSolution.Data.Repositories.Interface;
 using System;
 using System.Threading.Tasks;
+using tShop.Repository.Interface;
 
-namespace eShopSolution.Data.Repositories
+namespace tShop.Repository
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork
     {
         private readonly EShopDbContext context;
 
-        //public IGenericRepository<Order> OrderRepository { get; }
+        public IGenericRepository<Order> OrderRepository { get; }
         public IGenericRepository<Slide> SlideRepository { get; }
+        public IGenericRepository<Category> CategoryRepository { get; }
+        public IGenericRepository<CategoryTranslation> CategoryTranslationRepository { get; }
 
         public UnitOfWork(EShopDbContext context,
-           // IGenericRepository<Order> OrderRepository,
-            IGenericRepository<Slide> SlideRepository
+            IGenericRepository<Order> OrderRepository,
+            IGenericRepository<Slide> SlideRepository,
+            IGenericRepository<Category> CategoryRepository,
+            IGenericRepository<CategoryTranslation> CategoryTranslationRepository
             )
         {
             this.context = context;
-            //this.OrderRepository = OrderRepository;
+            this.OrderRepository = OrderRepository;
             this.SlideRepository = SlideRepository;
+            this.CategoryRepository = CategoryRepository;
+            this.CategoryTranslationRepository = CategoryTranslationRepository;
         }
 
         public int SaveChanges()

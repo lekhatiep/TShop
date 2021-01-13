@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace eShopSolution.Data.Repositories.Interface
+namespace tShop.Repository.Interface
 {
     public interface IUnitOfWork : IDisposable
     {

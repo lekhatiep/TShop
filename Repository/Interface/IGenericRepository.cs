@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eShopSolution.Data.Repositories.Interface
+namespace tShop.Repository.Interface
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
@@ -26,8 +26,6 @@ namespace eShopSolution.Data.Repositories.Interface
 
         void Add(TEntity entity);
 
-        void Delete(int Id);
-
         //Async
         Task<IEnumerable<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>> filter = null,
@@ -35,5 +33,7 @@ namespace eShopSolution.Data.Repositories.Interface
            );
 
         Task<TEntity> GetByIDAsync(object id);
+
+        IQueryable<TEntity> GetQuery();
     }
 }
