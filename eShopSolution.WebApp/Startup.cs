@@ -71,6 +71,7 @@ namespace eShopSolution.WebApp
             services.AddTransient<ICategoryApiClient, CategoryApiClient>();
             services.AddTransient<IUserApiClient, UserApiClient>();
             services.AddTransient<IOrderApiClient, OrderApiClient>();
+            services.AddTransient<ILanguageApiClient, LanguageApiClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
