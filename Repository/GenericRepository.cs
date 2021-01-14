@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 using tShop.Repository.Interface;
 
@@ -108,9 +109,19 @@ namespace tShop.Repository
             return await dbSet.FindAsync(id);
         }
 
+        public async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await dbSet.FirstOrDefaultAsync(predicate);
+        }
+
         public IQueryable<TEntity> GetQuery()
         {
             return context.Set<TEntity>();
+        }
+
+        public async Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+        {
+            return await dbSet.FirstAsync(predicate);
         }
     }
 }

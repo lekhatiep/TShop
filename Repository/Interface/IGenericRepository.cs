@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace tShop.Repository.Interface
@@ -33,6 +34,10 @@ namespace tShop.Repository.Interface
            );
 
         Task<TEntity> GetByIDAsync(object id);
+
+        Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
+
+        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
 
         IQueryable<TEntity> GetQuery();
     }

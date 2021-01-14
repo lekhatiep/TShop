@@ -64,6 +64,11 @@ namespace eShopSolution.BackendApi
             services.AddTransient<IGenericRepository<Order>, GenericRepository<Order>>();
             services.AddTransient<IGenericRepository<Category>, GenericRepository<Category>>();
             services.AddTransient<IGenericRepository<CategoryTranslation>, GenericRepository<CategoryTranslation>>();
+            services.AddTransient<IGenericRepository<Product>, GenericRepository<Product>>();
+            services.AddTransient<IGenericRepository<ProductInCategory>, GenericRepository<ProductInCategory>>();
+            services.AddTransient<IGenericRepository<ProductImage>, GenericRepository<ProductImage>>();
+            services.AddTransient<IGenericRepository<ProductTranslation>, GenericRepository<ProductTranslation>>();
+            services.AddTransient<IGenericRepository<Language>, GenericRepository<Language>>();
             services.AddTransient<UnitOfWork>();
 
             //Register Validator each
