@@ -17,15 +17,20 @@ using eShopSolution.ViewModels.Catalog.Products;
 using eShopSolution.Application.Catolog.ProductImages;
 using eShopSolution.ViewModels.Catalog.Category;
 using eShopSolution.Utilities.Constant;
+using tShop.Repository;
 
 namespace eShopSolution.Application.Catolog.Products
 {
     public class ProductService : IProductService
     {
-        private readonly EShopDbContext _context;
+        //private readonly EShopDbContext _context;
+        private readonly UnitOfWork _context;
+
         private readonly IStrorageService _storageService;
 
-        public ProductService(EShopDbContext context, IStrorageService storageService)
+        public ProductService(IStrorageService storageService,
+            UnitOfWork context)
+
         {
             _context = context;
             _storageService = storageService;
@@ -33,17 +38,18 @@ namespace eShopSolution.Application.Catolog.Products
 
         public async Task AddViewCount(int productId)
         {
-            var product = await _context.Products.FindAsync(productId);
+            var product = await _context.ProductRepository.GetByIDAsync(productId);
             product.ViewCount += 1;
             await _context.SaveChangesAsync();
         }
 
         public async Task<int> Create(ProductCreateRequest request)
         {
-            var languages = _context.Languages;
+            var languages2 = _context.LanguageRepository.Get();
+            //var languages = _context.Languages;
             var productTranslations = new List<ProductTranslation>();
 
-            foreach (var language in languages)
+            foreach (var language in languages2)
             {
                 if (language.Id == request.LanguageId)
                 {
@@ -95,28 +101,43 @@ namespace eShopSolution.Application.Catolog.Products
                     }
                 };
             }
+            else
+            {
+                product.ProductImages = new List<ProductImage>()
+                {
+                    new ProductImage()
+                    {
+                        Caption = "Default Images",
+                        DateCreated = DateTime.Now,
+                        FileSize = 123,
+                        ImagePath =  "/"+SystemConstant.ProductSettings.USER_CONTENT_FOLDER_NAME+"/default_image.jpg",
+                        IsDefault = true,
+                        SortOrder = 1
+                    }
+        };
+            }
 
-            _context.Products.Add(product);
+            _context.ProductRepository.Add(product);
             await _context.SaveChangesAsync();
             return product.Id;
         }
 
         public async Task<ProductViewModel> GetById(int productId, string languageId)
         {
-            var product = await _context.Products.FindAsync(productId);
-            var productTraslation = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == product.Id
+            var product = await _context.ProductRepository.GetByIDAsync(productId);
+            var productTraslation = await _context.ProductTranslationRepository.FirstOrDefaultAsync(x => x.ProductId == product.Id
             && x.LanguageId == languageId);
-            var productImages = await _context.ProductImages.Where(x => x.ProductId == product.Id).ToListAsync();
-            var otherProductImages = await _context.ProductImages.Where(x => x.ProductId == product.Id && x.IsDefault != true).Select(x => new ProductImageViewModel
+            var productImages = await _context.ProductImageRepository.GetQuery().Where(x => x.ProductId == product.Id).ToListAsync();
+            var otherProductImages = await _context.ProductImageRepository.GetQuery().Where(x => x.ProductId == product.Id && x.IsDefault != true).Select(x => new ProductImageViewModel
             {
                 Id = x.Id,
                 ImagePath = x.ImagePath,
                 Caption = x.Caption,
                 SortOrder = x.SortOrder
             }).ToListAsync();
-            var catgory = await (from c in _context.Categories
-                                 join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId
-                                 join pic in _context.ProductInCategories on c.Id equals pic.CategoryId
+            var catgory = await (from c in _context.CategoryRepository.GetQuery()
+                                 join ct in _context.CategoryTranslationRepository.GetQuery() on c.Id equals ct.CategoryId
+                                 join pic in _context.ProductInCategoryRepository.GetQuery() on c.Id equals pic.CategoryId
                                  where pic.ProductId == productId && ct.LanguageId == languageId
                                  select ct.Name).ToListAsync();
 
@@ -145,10 +166,10 @@ namespace eShopSolution.Application.Catolog.Products
 
         public async Task<int> Delete(int productId)
         {
-            var product = await _context.Products.FindAsync(productId);
+            var product = await _context.ProductRepository.GetByIDAsync(productId);
             if (product == null)
                 throw new EShopException($"Cannot find product id {productId} ");
-            var images = _context.ProductImages.Where(x => x.ProductId == productId);
+            var images = _context.ProductImageRepository.Get().Where(x => x.ProductId == productId);
             if (images != null)
             {
                 foreach (var image in images)
@@ -156,20 +177,21 @@ namespace eShopSolution.Application.Catolog.Products
                     await _storageService.DeleteFileAsync(image.ImagePath);
                 }
             }
-            _context.Products.Remove(product);
+
+            _context.ProductRepository.Delete(product);
             return await _context.SaveChangesAsync();
         }
 
         public async Task<ApiResult<PagedResult<ProductViewModel>>> GetAllPaging(GetManageProductPagingRequest request)
         {
             //1: Select
-            var query = from p in _context.Products
-                        join pt in _context.ProductTranslations on p.Id equals pt.ProductId
-                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId into pptpic
+            var query = from p in _context.ProductRepository.GetQuery()
+                        join pt in _context.ProductTranslationRepository.GetQuery() on p.Id equals pt.ProductId
+                        join pic in _context.ProductInCategoryRepository.GetQuery() on p.Id equals pic.ProductId into pptpic
                         from pic in pptpic.DefaultIfEmpty()
-                        join c in _context.Categories on pic.CategoryId equals c.Id into pc
+                        join c in _context.CategoryRepository.GetQuery() on pic.CategoryId equals c.Id into pc
                         from c in pc.DefaultIfEmpty()
-                        join pi in _context.ProductImages on p.Id equals pi.ProductId into ppi
+                        join pi in _context.ProductImageRepository.GetQuery() on p.Id equals pi.ProductId into ppi
                         from pi in ppi.DefaultIfEmpty()
                         where pt.LanguageId == request.LanguageId
                         && pi.IsDefault == true
@@ -180,7 +202,7 @@ namespace eShopSolution.Application.Catolog.Products
                             pic,
                             pi
                         }
-                        ;
+                       ;
             //2: check filter
             if (!string.IsNullOrEmpty(request.Keyword))
             {
@@ -225,8 +247,9 @@ namespace eShopSolution.Application.Catolog.Products
 
         public async Task<int> Update(ProductUpdateRequest request)
         {
-            var product = await _context.Products.FindAsync(request.Id);
-            var productTranslation = await _context.ProductTranslations
+            //var product = await _context.Products.FindAsync(request.Id);
+            var product = await _context.ProductRepository.GetByIDAsync(request.Id);
+            var productTranslation = await _context.ProductTranslationRepository
                 .FirstOrDefaultAsync(x => x.ProductId == request.Id && x.LanguageId == request.LanguageId);
             if (product == null || productTranslation == null)
             {
@@ -242,12 +265,12 @@ namespace eShopSolution.Application.Catolog.Products
             //Save Images
             if (request.ThumbnailImage != null)
             {
-                var thumbnailImage = await _context.ProductImages.FirstOrDefaultAsync(x => x.IsDefault == true && x.ProductId == request.Id);
+                var thumbnailImage = await _context.ProductImageRepository.FirstOrDefaultAsync(x => x.IsDefault == true && x.ProductId == request.Id);
                 if (thumbnailImage != null)
                 {
                     thumbnailImage.FileSize = request.ThumbnailImage.Length;
                     thumbnailImage.ImagePath = await this.SaveFile(request.ThumbnailImage);
-                    _context.ProductImages.Update(thumbnailImage);
+                    _context.ProductImageRepository.Update(thumbnailImage);
                 }
                 else
                 {
@@ -271,7 +294,7 @@ namespace eShopSolution.Application.Catolog.Products
 
         public async Task<bool> UpdatePrice(int productId, decimal newPrice)
         {
-            var product = await _context.Products.FindAsync(productId);
+            var product = await _context.ProductRepository.GetByIDAsync(productId);
 
             if (product == null)
             {
@@ -283,7 +306,7 @@ namespace eShopSolution.Application.Catolog.Products
 
         public async Task<bool> UpdateStock(int productId, int addedQuantity)
         {
-            var product = await _context.Products.FindAsync(productId);
+            var product = await _context.ProductRepository.GetByIDAsync(productId);
 
             if (product == null)
             {
@@ -311,19 +334,21 @@ namespace eShopSolution.Application.Catolog.Products
                 IsDefault = request.IsDefault,
                 SortOrder = request.SortOrder
             };
+
             if (request.ImageFile != null)
             {
                 productImage.FileSize = request.ImageFile.Length;
                 productImage.ImagePath = await this.SaveFile(request.ImageFile);
             }
-            _context.ProductImages.Add(productImage);
+
+            _context.ProductImageRepository.Add(productImage);
             await _context.SaveChangesAsync();
             return productImage.Id;
         }
 
         public async Task<int> UpdateImage(int imageId, ProductImageUpdateRequest request)
         {
-            var productImage = await _context.ProductImages.FirstAsync(x => x.Id == imageId);
+            var productImage = await _context.ProductImageRepository.FirstAsync(x => x.Id == imageId);
             if (productImage != null)
                 throw new EShopException($"Cannot find productimage {imageId}");
             if (request.ImageFile != null)
@@ -334,22 +359,22 @@ namespace eShopSolution.Application.Catolog.Products
                 productImage.IsDefault = request.IsDefault;
                 productImage.SortOrder = request.SortOrder;
             }
-            _context.ProductImages.Update(productImage);
+            _context.ProductImageRepository.Update(productImage);
             return await _context.SaveChangesAsync();
         }
 
         public async Task<int> RemoveImage(int imageId)
         {
-            var productImage = await _context.ProductImages.FirstAsync(x => x.Id == imageId);
+            var productImage = await _context.ProductImageRepository.FirstAsync(x => x.Id == imageId);
             if (productImage != null)
                 throw new EShopException($"Cannot find productimage {imageId}");
-            _context.ProductImages.Remove(productImage);
+            _context.ProductImageRepository.Delete(productImage);
             return await _context.SaveChangesAsync();
         }
 
         public async Task<List<ProductImageViewModel>> GetListImages(int productId)
         {
-            return await _context.ProductImages.Where(x => x.ProductId == productId)
+            return await _context.ProductImageRepository.GetQuery().Where(x => x.ProductId == productId)
                 .Select(i => new ProductImageViewModel()
                 {
                     Id = i.Id,
@@ -365,7 +390,7 @@ namespace eShopSolution.Application.Catolog.Products
 
         public async Task<ProductImageViewModel> GetImageById(int imageId)
         {
-            var Image = await _context.ProductImages.FirstAsync(x => x.Id == imageId);
+            var Image = await _context.ProductImageRepository.FirstAsync(x => x.Id == imageId);
             if (Image != null)
                 throw new EShopException($"Cannot find image with Id :  {imageId}");
             var data = new ProductImageViewModel()
@@ -384,10 +409,10 @@ namespace eShopSolution.Application.Catolog.Products
 
         public async Task<PagedResult<ProductViewModel>> GetAllByCategoryId(string languageId, GetPublicProductPagingRequest request)
         {
-            var query = from p in _context.Products
-                        join pt in _context.ProductTranslations on p.Id equals pt.ProductId
-                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId
-                        join c in _context.Categories on pic.CategoryId equals c.Id
+            var query = from p in _context.ProductRepository.GetQuery()
+                        join pt in _context.ProductTranslationRepository.GetQuery() on p.Id equals pt.ProductId
+                        join pic in _context.ProductInCategoryRepository.GetQuery() on p.Id equals pic.ProductId
+                        join c in _context.CategoryRepository.GetQuery() on pic.CategoryId equals c.Id
                         where pt.LanguageId == languageId
                         select (new { p, pt, pic });
 
@@ -426,7 +451,7 @@ namespace eShopSolution.Application.Catolog.Products
 
         public async Task<ApiResult<bool>> AssignCategory(int Id, CategoryAssignRequest request)
         {
-            var product = await _context.Products.FindAsync(Id);
+            var product = await _context.ProductRepository.GetByIDAsync(Id);
             if (product == null)
                 return new ApiErrorResult<bool>("Sản phẩm không tồn tại");
             // remove category if doesnt check from request
@@ -434,14 +459,14 @@ namespace eShopSolution.Application.Catolog.Products
 
             foreach (var category in categoriesList)
             {
-                var productInCategory = await _context.ProductInCategories.FirstOrDefaultAsync(x => x.ProductId == Id && x.CategoryId == int.Parse(category.Id));
+                var productInCategory = await _context.ProductInCategoryRepository.FirstOrDefaultAsync(x => x.ProductId == Id && x.CategoryId == int.Parse(category.Id));
                 if (productInCategory != null && category.Selected == false)
                 {
-                    _context.ProductInCategories.Remove(productInCategory);
+                    _context.ProductInCategoryRepository.Delete(productInCategory);
                 }
                 else if (productInCategory == null && category.Selected)
                 {
-                    _context.ProductInCategories.Add(new ProductInCategory()
+                    _context.ProductInCategoryRepository.Add(new ProductInCategory()
                     {
                         ProductId = Id,
                         CategoryId = int.Parse(category.Id)
@@ -455,25 +480,25 @@ namespace eShopSolution.Application.Catolog.Products
 
         public async Task<List<ProductViewModel>> GetFeaturedProducts(string languageId, int take)
         {
-            var query = from p in _context.Products
-                        join pt in _context.ProductTranslations on p.Id equals pt.ProductId
-                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId into pptpic
-                        from pic in pptpic.DefaultIfEmpty()
-                        join pi in _context.ProductImages.Where(x => x.IsDefault == true) on p.Id equals pi.ProductId into ppi
-                        from pi in ppi.DefaultIfEmpty()
-                        join c in _context.Categories on pic.CategoryId equals c.Id into pc
-                        from c in pc.DefaultIfEmpty()
-                        where pt.LanguageId == languageId && (pi.IsDefault == true || pi == null)
-                        && p.IsFeatured == true
-                        select new
-                        {
-                            p,
-                            pt,
-                            pic,
-                            pi
-                        }
+            var query2 = from p in _context.ProductRepository.GetQuery()
+                         join pt in _context.ProductTranslationRepository.GetQuery() on p.Id equals pt.ProductId
+                         join pic in _context.ProductInCategoryRepository.GetQuery() on p.Id equals pic.ProductId into pptpic
+                         from pic in pptpic.DefaultIfEmpty()
+                         join pi in _context.ProductImageRepository.GetQuery().Where(x => x.IsDefault == true) on p.Id equals pi.ProductId into ppi
+                         from pi in ppi.DefaultIfEmpty()
+                         join c in _context.CategoryRepository.GetQuery() on pic.CategoryId equals c.Id into pc
+                         from c in pc.DefaultIfEmpty()
+                         where pt.LanguageId == languageId && (pi.IsDefault == true || pi == null)
+                         && p.IsFeatured == true
+                         select new
+                         {
+                             p,
+                             pt,
+                             pic,
+                             pi
+                         }
                        ;
-            var data = await query.OrderByDescending(x => x.p.DateCreated).Take(take)
+            var data = await query2.OrderByDescending(x => x.p.DateCreated).Take(take)
                 .Select(x => new ProductViewModel()
                 {
                     Id = x.p.Id,
@@ -499,13 +524,13 @@ namespace eShopSolution.Application.Catolog.Products
 
         public async Task<List<ProductViewModel>> GetLatestProducts(string languageId, int take)
         {
-            var query = from p in _context.Products
-                        join pt in _context.ProductTranslations on p.Id equals pt.ProductId
-                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId into pptpic
+            var query = from p in _context.ProductRepository.GetQuery()
+                        join pt in _context.ProductTranslationRepository.GetQuery() on p.Id equals pt.ProductId
+                        join pic in _context.ProductInCategoryRepository.GetQuery() on p.Id equals pic.ProductId into pptpic
                         from pic in pptpic.DefaultIfEmpty()
-                        join pi in _context.ProductImages.Where(x => x.IsDefault == true) on p.Id equals pi.ProductId into ppi
+                        join pi in _context.ProductImageRepository.GetQuery().Where(x => x.IsDefault == true) on p.Id equals pi.ProductId into ppi
                         from pi in ppi.DefaultIfEmpty()
-                        join c in _context.Categories on pic.CategoryId equals c.Id into pc
+                        join c in _context.CategoryRepository.GetQuery() on pic.CategoryId equals c.Id into pc
                         from c in pc.DefaultIfEmpty()
                         where pt.LanguageId == languageId && (pi.IsDefault == true || pi == null)
                         && p.IsFeatured == true

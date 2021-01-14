@@ -14,12 +14,23 @@ namespace tShop.Repository
         public IGenericRepository<Slide> SlideRepository { get; }
         public IGenericRepository<Category> CategoryRepository { get; }
         public IGenericRepository<CategoryTranslation> CategoryTranslationRepository { get; }
+        public IGenericRepository<Product> ProductRepository { get; }
+        public IGenericRepository<ProductTranslation> ProductTranslationRepository { get; }
+        public IGenericRepository<ProductImage> ProductImageRepository { get; }
+        public IGenericRepository<ProductInCategory> ProductInCategoryRepository { get; }
+        public IGenericRepository<Language> LanguageRepository { get; }
 
         public UnitOfWork(EShopDbContext context,
             IGenericRepository<Order> OrderRepository,
             IGenericRepository<Slide> SlideRepository,
             IGenericRepository<Category> CategoryRepository,
-            IGenericRepository<CategoryTranslation> CategoryTranslationRepository
+            IGenericRepository<CategoryTranslation> CategoryTranslationRepository,
+            IGenericRepository<Product> ProductRepository,
+            IGenericRepository<ProductTranslation> ProductTranslationRepository,
+            IGenericRepository<ProductImage> ProductImageRepository,
+            IGenericRepository<ProductInCategory> ProductInCategoryRepository,
+            IGenericRepository<Language> LanguageRepository
+
             )
         {
             this.context = context;
@@ -27,6 +38,11 @@ namespace tShop.Repository
             this.SlideRepository = SlideRepository;
             this.CategoryRepository = CategoryRepository;
             this.CategoryTranslationRepository = CategoryTranslationRepository;
+            this.ProductRepository = ProductRepository;
+            this.ProductTranslationRepository = ProductTranslationRepository;
+            this.ProductImageRepository = ProductImageRepository;
+            this.ProductInCategoryRepository = ProductInCategoryRepository;
+            this.LanguageRepository = LanguageRepository;
         }
 
         public int SaveChanges()
