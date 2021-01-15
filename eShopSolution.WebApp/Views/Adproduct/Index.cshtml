@@ -1,0 +1,119 @@
+﻿@using eShopSolution.ViewModels.Common;
+@using eShopSolution.Utilities.Constant;
+@model PagedResult<eShopSolution.ViewModels.Catalog.Products.ProductViewModel>;
+@inject Microsoft.Extensions.Configuration.IConfiguration _config;
+
+@{ ViewData["Title"] = "Index";
+    var baseAddress = SystemConstant.AppSettings.BaseAddress; }
+@section Scripts{
+    <script>
+        setTimeout(function () {
+            $('#msgAlert').fadeOut('slow');
+        }, 2000)
+    </script>
+
+}
+<div class="container-fluid">
+    <h1 class="mt-4">Danh sách sản phẩm</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Danh sách sản phẩm</li>
+    </ol>
+    <div class="card mb-12">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <a asp-action="Create" asp-controller="Adproduct" class="btn btn-success">Tạo một sản phẩm mới</a>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <form asp-action="Index" method="get">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input name="keyword" type="text" placeholder="Search..." class="form-control" value="@ViewBag.Keyword" />
+                            </div>
+                            <div class="col-md-5">
+                                <select name="categoryId" onchange="this.form.submit()" asp-items="@ViewBag.Categories" class="form-control">
+                                    <option>--Chọn danh mục--</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-primary">Tìm</button>
+                                <button type="button" onclick="window.location.href='/Product'" class="btn btn-dark">Reset</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                @if (ViewBag.SuccessMsg != null)
+                {
+    <div id="msgAlert" class="alert alert-success" role="alert">
+        @ViewBag.SuccessMsg
+    </div>}
+            </div>
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Mã sản phẩm
+                        </th>
+                        <th>
+                            Tên sản phẩm
+                        </th>
+                        <th>
+                            Gía gốc
+                        </th>
+                        <th>
+                            Giá bán
+                        </th>
+                        <th>
+                            Tồn kho
+                        </th>
+                        <th>
+                            Ảnh sản phẩm
+                        </th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Original)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock)
+            </td>
+            <td>
+                <a target="_blank" href="@_config[baseAddress]@item.Image">
+                    <img src="@_config[baseAddress]@item.Image" alt="item.Name" style="width:100px">
+                </a>
+            </td>
+            <td>
+                <a class="btn btn-outline-warning" asp-action="Edit" asp-controller="Adproduct" asp-route-id="@item.Id">Sửa</a>
+                <a class="btn btn-outline-primary" asp-action="Details" asp-controller="Adproduct" asp-route-id="@item.Id">Xem</a>
+                <a class="btn btn-outline-danger" asp-action="Delete" asp-controller="Adproduct" asp-route-id="@item.Id">Xóa</a>
+                <a class="btn btn-outline-danger" asp-action="CategoryAssign" asp-controller="Adproduct" asp-route-id="@item.Id">Gán danh mục sản phẩm</a>
+            </td>
+        </tr>}
+                </tbody>
+            </table>
+        </div>
+        <div>
+        </div>
+        @await Component.InvokeAsync("Pager", Model)
+    </div>
+</div>
