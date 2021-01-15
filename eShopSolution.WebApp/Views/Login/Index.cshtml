@@ -27,6 +27,7 @@
                                 <div class="card-body">
 
                                     <form method="post" asp-controller="Login" asp-action="Index">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                         <div class="form-group">
                                             <label class="small mb-1">Tài khoản</label>
                                             <input class="form-control py-4" asp-for="UserName" type="text" placeholder="Nhập tài khoản" />

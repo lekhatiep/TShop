@@ -19,7 +19,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Hệ thống</div>
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" asp-action="Index" asp-controller="Adhome">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Trang chủ
                         </a>
@@ -32,8 +32,8 @@
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" asp-action="Index" asp-controller="Product">Quản lý sản phẩm</a>
-                                <a class="nav-link" asp-action="Index" asp-controller="User">Người dùng</a>
-                                <a class="nav-link" asp-action="Create" asp-controller="User">Tạo mới tài khoản</a>
+                                <a class="nav-link" asp-action="Index" asp-controller="Aduser">Người dùng</a>
+                                <a class="nav-link" asp-action="Create" asp-controller="Aduser">Tạo mới tài khoản</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -68,11 +68,11 @@
                             </nav>
                         </div>
                         <div class="sb-sidenav-menu-heading">Addons</div>
-                        <a class="nav-link" href="charts.html">
+                        <a class="nav-link" asp-action="Chart" asp-controller="Addon">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             Charts
                         </a>
-                        <a class="nav-link" href="tables.html">
+                        <a class="nav-link"asp-action="Table" asp-controller="Addon">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Tables
                         </a>
