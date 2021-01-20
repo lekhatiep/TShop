@@ -14,7 +14,7 @@ namespace eShopSolution.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    // [Authorize]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _manageProductService;
@@ -34,6 +34,7 @@ namespace eShopSolution.BackendApi.Controllers
         }
 
         //http:localhost/product/1/vi-Vn
+        [AllowAnonymous]
         [HttpGet("{productId}/{languageId}")]
         public async Task<ActionResult> GetById(int productId, string languageId)
         {

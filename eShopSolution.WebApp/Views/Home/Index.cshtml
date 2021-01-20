@@ -7,6 +7,7 @@
     ViewData["Title"] = "Home Page";
     var culture = CultureInfo.CurrentCulture.Name;
     var urlBackend = _config[SystemConstant.AppSettings.BaseAddress];
+    var url = "";
 }
 @section Slider{
     <div id="carouselBlk">
@@ -58,13 +59,16 @@
 
                                 @foreach (var item in ListProductPart[i])
                                 {
+                                    url = $"/{culture}/{ _loc["productURL"]}/{item.Id}";
                                     <li class="span3">
                                         <div class="thumbnail">
                                             <i class="tag"></i>
-                                            <a href="#"><img src="@urlBackend@item.Image" alt=""></a>
+                                            <a href="@url">
+                                            <img src="@urlBackend@item.Image" alt="">
+                                            </a>
                                             <div class="caption">
                                                 <h5>@item.Name</h5>
-                                                <h4><a class="btn" href="#"><localize>VIEW</localize></a> <span class="pull-right">@Convert.ToDecimal(item.Price).ToString("#,##0")</span></h4>
+                                                
                                             </div>
                                         </div>
                                     </li>
@@ -85,7 +89,7 @@
     @{ foreach (var item in Model.latestProducts)
         {
 
-            var url = $"/{culture}/{ _loc["productURL"]}/{item.Id}";
+            url = $"/{culture}/{ _loc["productURL"]}/{item.Id}";
             <li class="span3">
                 <div class="thumbnail">
                     <a href="@url">
@@ -93,14 +97,13 @@
                     </a>
                     <div class="caption">
                         <h5>@item.Name</h5>
-                        <p>
-                            @item.Description
-                        </p>
-
+                        <p> 5 <span class="icon-star checked"></span> | 1000</p>
+                        
                         <h4 style="text-align:center">
-                            <a class="btn" href="#"> <i class="icon-zoom-in"></i></a>
-                            <a class="btn btn-add-cart" data-id="@item.Id" href=""><localize>Add to</localize><i class="icon-shopping-cart"></i></a>
-                            <a class="btn btn-primary" href="#">@Convert.ToDecimal(item.Price).ToString("#,##0")<span>&#8363;</span> </a>
+
+                            <span class="product-discountedPrice">@Convert.ToDecimal(item.Price).ToString("#,##0") <span>&#8363;</span> </span>
+                            <span class="product-strike">@Convert.ToDecimal(item.Price * 1 / 2).ToString("#,##0")</span>
+                            <span class="product-discountPercentage">(79% OFF)</span>
                         </h4>
                     </div>
                 </div>

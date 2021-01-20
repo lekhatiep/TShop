@@ -1,7 +1,7 @@
 ﻿@inject Microsoft.Extensions.Configuration.IConfiguration _config;
 @using eShopSolution.Utilities.Constant;
 @{ var culture = CultureInfo.CurrentCulture.Name;
-                var urlAPI = _config[SystemConstant.AppSettings.BaseAddress]; }
+    var urlAPI = _config[SystemConstant.AppSettings.BaseAddress]; }
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,6 +33,10 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="/themes/images/ico/apple-touch-icon-57-precomposed.png">
     <style type="text/css" id="enject"></style>
+    <link href="/css/common/common.css" rel="stylesheet" />
+    <link href="/css/product/product_style.css" rel="stylesheet" />
+    <link href="/css/sidebar.css" rel="stylesheet" />
+    @RenderSection("style", required: false)
 </head>
 <body>
     <input type="hidden" value="@culture" id="currentLang" />
@@ -47,34 +51,49 @@
                 <div class="span6">
                     <div class="pull-right">
                         @*<a href="product_summary.html"><span class="">Fr</span></a>
-        <a href="product_summary.html"><span class="">Es</span></a>
-        <span class="btn btn-mini">En</span>
-        <a href="product_summary.html"><span>&pound;</span></a>
-        <span class="btn btn-mini">$155.00</span>
-        <a href="product_summary.html"><span class="">$</span></a*@
+                            <a href="product_summary.html"><span class="">Es</span></a>
+                            <span class="btn btn-mini">En</span>
+                            <a href="product_summary.html"><span>&pound;</span></a>
+                            <span class="btn btn-mini">$155.00</span>
+                            <a href="product_summary.html"><span class="">$</span></a*@
                         <language-nav cookie-handler-url="@Url.Action("SetCultureCookie", "Home", new { area="", cltr="{0}", returnUrl="{1}" })"></language-nav>
 
                         @if (User.Identity.IsAuthenticated)
                         {
 
-                    <form method="post" asp-action="Logout" asp-controller="Account">
-                        <button style="margin-top: 13px;" type="submit" class="">Logout</button>
-                    </form> }
-                else
-                {
-                    <a href="/@culture/Account/Login" style="padding-right:0"><span class=""><localize>Login</localize></span></a>}
+            <form method="post" asp-action="Logout" asp-controller="Account">
+                <button style="margin-top: 13px;" type="submit" class="">Logout</button>
+            </form> }
+        else
+        {
+<a href="/@culture/Account/Login" style="padding-right:0"><span class=""><localize>Login</localize></span></a>}
                     </div>
                 </div>
             </div>
             <!-- Navbar ================================================== -->
+            @*<div class="search-header">
+                            <form action="" class="search-bar form-inline navbar-search">
+                    <input type="search" name="search" pattern=".*\S.*" required>
+                    <button class="search-btn" type="submit">
+                        <span>Search</span>
+                    </button>
+                </form>
+                            </div>*@
             <div id="logoArea" class="navbar">
                 <a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
+
                 <div class="navbar">
                     <a class="brand" href="/"><img src="/themes/images/logo.png" alt="Bootsshop" /></a>
+                    <form action="" class="search-bar form-inline navbar-search">
+                        <input type="search" class="input_search" name="search" pattern=".*\S.*" required>
+                        <button class="search-btn" type="submit">
+                            <span>Search</span>
+                        </button>
+                    </form>
                     <ul id="topMenu" class="nav pull-right">
                         <li class=""><a asp-route-culture="@culture" localize-content>Specials Offer</a></li>
                         <li class=""><a asp-route-culture="@culture" localize-content>Delivery</a></li>
@@ -83,14 +102,12 @@
                             <a href="@culture/cart"><span><i class="icon-shopping-cart icon-white"></i> [ <span id="number_item_header">0</span> ]</span> </a>
                         </li>
                         <li class="">
-                           
                         </li>
                     </ul>
-                    <form class="form-inline navbar-search" method="post" action="products.html">
-                        <input id="srchFld" class="srchTxt" type="text" />
-                        <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
-                    </form>
-
+                    @*<form class="form-inline navbar-search" method="post" action="products.html">
+                            <input id="srchFld" class="srchTxt" type="text" />
+                            <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
+                        </form>*@
                 </div>
             </div>
         </div>
@@ -152,6 +169,7 @@
     <script src="/themes/js/bootshop.js"></script>
     <script src="/themes/js/jquery.lightbox-0.5.js"></script>
     <script src="/js/site.js"></script>
+    <script src="/js/sidebar.js"></script>
     <script>
         var site = new SiteController();
         site.initialize();

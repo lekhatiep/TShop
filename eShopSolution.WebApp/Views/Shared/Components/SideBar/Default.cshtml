@@ -1,42 +1,43 @@
 ﻿@model List<eShopSolution.ViewModels.Catalog.Category.CategoryViewModel>;
 @inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
-@{
-    var culture = CultureInfo.CurrentCulture.Name;
-}
+@{ var culture = CultureInfo.CurrentCulture.Name; }
 <!-- Sidebar ================================================== -->
+<style>
+</style>
 <div id="sidebar" class="span3">
-    <div class="well well-small"><a id="myCart" href="product_summary.html"><img src="/themes/images/ico-cart.png" alt="cart">3 Items in your cart  <span class="badge badge-warning pull-right">$155.00</span></a></div>
-    <ul id="sideManu" class="nav nav-tabs nav-stacked">
-        @{
-
-            var parents = Model.Where(x => x.ParentId == null);
-            for (var i = 0; i < parents.Count(); i++)
-            {
-                var p = parents.ElementAt(i);
-                var child = Model.Where(x => x.ParentId == p.Id);
-                if (child.Any())
+    <div class="well well-small">
+        <a id="myCart" href="product_summary.html">
+        <img src="/themes/images/ico-cart.png" alt="cart">3 Items in your cart  
+        <span class="badge badge-warning pull-right">$155.00</span>
+        </a>
+    </div>
+    <div class="accordion-menu">
+        <ul class="menu">
+            @{ var parents = Model.Where(x => x.ParentId == null);
+                for (var i = 0; i < parents.Count(); i++)
                 {
-                    <li class="subMenu">
-                        <a> @p.Name</a>
-                        <ul>
-                            @foreach (var sub in child)
-                            {
-
-                                <li><a class="active" href="/@culture/@_loc["categoryURL"]/@sub.Id"><i class="icon-chevron-right"></i>@sub.Name </a></li>
-
-                            }
-                        </ul>
-                    </li>
-
-                }
-                else
+                    var p = parents.ElementAt(i);
+                    var child = Model.Where(x => x.ParentId == p.Id);
+                    if (child.Any())
+                    {
+        <li>
+            <a> @p.Name</a>
+            <ul>
+                @foreach (var sub in child)
                 {
-                    <li><a href="/@culture/@_loc["categoryURL"]/@p.Id">@p.Name</a></li>
-                }
-            }
-        }
-    </ul>
-    <br />
+
+        <li>
+            <a class="active" href="/@culture/@_loc["categoryURL"]/@sub.Id"><i class="icon-chevron-right"></i>@sub.Name </a>
+        </li>                    }
+            </ul>
+        </li> }
+                        else
+                        {
+        <li><a href="/@culture/@_loc["categoryURL"]/@p.Id">@p.Name</a></li> }
+                    } }
+            
+        </ul>
+    </div>
     @*<div class="thumbnail">
             <img src="/themes/images/products/panasonic.jpg" alt="Bootshop panasonoc New camera" />
             <div class="caption">
@@ -58,4 +59,5 @@
             </div>
         </div>*@
 </div>
+
 <!-- Sidebar end=============================================== -->
