@@ -1,0 +1,38 @@
+﻿.product-discountedPrice, .product-price {
+    font-size: 14px;
+    color: #282c3f;
+    font-weight: 500;
+}
+
+.product-strike {
+    text-decoration: line-through;
+    color: #7e818c;
+    font-weight: 400;
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+.product-discountPercentage {
+    color: #ff905a;
+    font-weight: 400;
+    font-size: 12px;
+    margin-left: 5px;
+}
+.checked {
+    color: orange;
+}
+.carousel-control {
+    position: absolute;
+    top: 40%;
+    left: 15px;
+    width: 30px;
+    height: 30px;
+    margin-top: -20px;
+    font-size: 30px;
+    font-weight: 100;
+    line-height: 24px;
+}
+.carousel-control.right {
+    right: 0px;
+    left: auto;
+}

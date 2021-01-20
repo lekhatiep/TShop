@@ -37,7 +37,7 @@ namespace eShopSolution.WebApp
                 new CultureInfo("en"),
             };
 
-            services.AddControllersWithViews()
+            services.AddControllersWithViews().AddRazorRuntimeCompilation()
                 .AddExpressLocalization<ExpressLocalizationResource, ViewLocalizationResource>(ops =>
             {
                 ops.UseAllCultureProviders = false;
