@@ -12,9 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\eShopSolution.Application\TShopSolution.Application.csproj" />
-    <ProjectReference Include="..\eShopSolution.Data\TShopSolution.Data.csproj" />
-    <ProjectReference Include="..\eShopSolution.ViewModel\TShopSolution.ViewModels.csproj" />
+    <ProjectReference Include="..\TShopSolution.Application\TShopSolution.Application.csproj" />
+    <ProjectReference Include="..\TShopSolution.Data\TShopSolution.Data.csproj" />
+    <ProjectReference Include="..\TShopSolution.ViewModel\TShopSolution.ViewModels.csproj" />
     <ProjectReference Include="..\Utilities\TShopSolution.Utilities.csproj" />
   </ItemGroup>
 </Project>
