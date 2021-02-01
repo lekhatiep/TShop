@@ -1,12 +1,14 @@
-﻿using eShopSolution.Data.Entities;
+﻿using eShopSolution.Application.System.Auth;
+using eShopSolution.Data.EF;
+using eShopSolution.Data.Entities;
 using eShopSolution.ViewModels.Common;
+using eShopSolution.ViewModels.System.Auth;
 using eShopSolution.ViewModels.System.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -21,54 +23,36 @@ namespace eShopSolution.Application.System.Users
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<AppRole> _roleManager;
         private readonly IConfiguration _config;
+        private readonly IRefreshTokenGenerate _refreshToken;
+        private readonly EShopDbContext _context;
 
         public UserService(UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             RoleManager<AppRole> roleManager,
-            IConfiguration config
+            IConfiguration config,
+            IRefreshTokenGenerate refreshToken,
+            EShopDbContext context
             )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _config = config;
+            _refreshToken = refreshToken;
+            _context = context;
         }
 
-        public async Task<ApiResult<string>> Authenticate(LoginRequest request)
+        public async Task<ApiResult<AuthenticateResponse>> Authenticate(LoginRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
-            if (user == null) return new ApiErrorResult<string>("Tài khoản không tồn tại"); ;
+            if (user == null) return new ApiErrorResult<AuthenticateResponse>("Tài khoản không tồn tại"); ;
 
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, true);
             if (!result.Succeeded)
             {
-                return new ApiErrorResult<string>("Tên đăng nhập hoặc mật khẩu không đúng");
+                return new ApiErrorResult<AuthenticateResponse>("Tên đăng nhập hoặc mật khẩu không đúng");
             }
-            //Create TOKEN:
-            var role = await _userManager.GetRolesAsync(user);
-            //Claim chua thong tin muon duoc ma hoa thanh 1 chuoi token
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.GivenName, user.FirstName),
-                new Claim(ClaimTypes.Role, string.Join(';',role)),
-                new Claim(ClaimTypes.Name, request.UserName),
-            };
-            //Su dung 1 key chuoi ngau nghien de tao ra string token
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
-            //Tao string chung chi dang ky cho jwt dua vao key
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            //Tao token
-            var token = new JwtSecurityToken(_config["Tokens:Issuer"],
-                 _config["Tokens:Issuer"],
-                  claims,
-                  null,
-                  expires: DateTime.Now.AddMinutes(120),
-                  signingCredentials: credentials
-                );
-
-            return new ApiSuccessResult<string>(new JwtSecurityTokenHandler().WriteToken(token));
+            return await GenerateTokenAsync(user);
         }
 
         public async Task<ApiResult<bool>> Delete(Guid Id)
@@ -205,6 +189,58 @@ namespace eShopSolution.Application.System.Users
                 }
             }
             return new ApiSuccessResult<bool>();
+        }
+
+        private async Task<ApiResult<AuthenticateResponse>> GenerateTokenAsync(AppUser user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            //Create TOKEN:
+
+            //Claim chua thong tin muon duoc ma hoa thanh 1 chuoi token
+
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim("Id", user.Id.ToString()),
+            };
+            //Su dung 1 key chuoi ngau nghien de tao ra string token
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+            //Tao string chung chi dang ky cho jwt dua vao key
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            //Token desciption
+            var tokenDesrciptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddSeconds(45),
+                SigningCredentials = credentials
+            };
+
+            var token = tokenHandler.CreateToken(tokenDesrciptor);
+
+            var refreshToken = new RefreshToken
+            {
+                Token = Guid.NewGuid().ToString(),
+                JwtId = token.Id,
+                UserId = user.Id,
+                CreationDate = DateTime.Now,
+                ExpiryDate = DateTime.Now.AddMonths(6)
+            };
+
+            await _context.RefreshTokens.AddAsync(refreshToken);
+            await _context.SaveChangesAsync();
+
+            return new ApiSuccessResult<AuthenticateResponse>(new AuthenticateResponse
+            {
+                JwtToken = tokenHandler.WriteToken(token),
+                RefreshToken = refreshToken.Token
+            });
+        }
+
+        public async Task<ApiResult<AuthenticateResponse>> Authenticate(AppUser user)
+        {
+            return await GenerateTokenAsync(user);
         }
     }
 }

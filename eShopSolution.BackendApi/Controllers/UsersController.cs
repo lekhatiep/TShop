@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using eShopSolution.Application.System.Auth;
 using eShopSolution.Application.System.Users;
+using eShopSolution.ViewModels.System.Auth;
 using eShopSolution.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +15,12 @@ namespace eShopSolution.BackendApi.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly ITokenRefresh _tokenRefresh;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, ITokenRefresh tokenRefresh)
         {
             _userService = userService;
+            _tokenRefresh = tokenRefresh;
         }
 
         [HttpPost("authenticate")]
@@ -28,12 +32,26 @@ namespace eShopSolution.BackendApi.Controllers
                 return BadRequest(ModelState);
             }
             var result = await _userService.Authenticate(request);
-            if (string.IsNullOrEmpty(result.ResultObject))
+            if (result.ResultObject == null)
             {
                 return BadRequest(result);
             }
 
-            return Ok(result);
+            return Ok(new AuthenticateResponse
+            {
+                JwtToken = result.ResultObject.JwtToken,
+                RefreshToken = result.ResultObject.RefreshToken
+            });
+        }
+
+        [HttpPost("refreshToken")]
+        [AllowAnonymous]
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
+        {
+            var token = await _tokenRefresh.RefreshTokenAsync(request);
+            if (token == null)
+                return Unauthorized();
+            return Ok(token);
         }
 
         [HttpPost("register")]

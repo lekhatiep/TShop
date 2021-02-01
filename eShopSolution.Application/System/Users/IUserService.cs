@@ -1,15 +1,19 @@
-﻿using eShopSolution.ViewModels.Common;
+﻿using eShopSolution.Data.Entities;
+using eShopSolution.ViewModels.Common;
+using eShopSolution.ViewModels.System.Auth;
 using eShopSolution.ViewModels.System.Users;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace eShopSolution.Application.System.Users
 {
     public interface IUserService
     {
-        Task<ApiResult<string>> Authenticate(LoginRequest request);
+        Task<ApiResult<AuthenticateResponse>> Authenticate(LoginRequest request);
+
+        Task<ApiResult<AuthenticateResponse>> Authenticate(AppUser user);
 
         Task<ApiResult<bool>> Register(RegisterRequest request);
 

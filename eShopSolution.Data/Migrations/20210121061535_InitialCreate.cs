@@ -260,6 +260,29 @@ namespace eShopSolution.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RefreshTokens",
+                columns: table => new
+                {
+                    Token = table.Column<string>(nullable: false),
+                    JwtId = table.Column<string>(nullable: true),
+                    CreationDate = table.Column<DateTime>(nullable: false),
+                    ExpiryDate = table.Column<DateTime>(nullable: false),
+                    Used = table.Column<bool>(nullable: false),
+                    Invalidated = table.Column<bool>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RefreshTokens", x => x.Token);
+                    table.ForeignKey(
+                        name: "FK_RefreshTokens_AppUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AppUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Transactions",
                 columns: table => new
                 {
@@ -465,7 +488,7 @@ namespace eShopSolution.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AppRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
-                values: new object[] { new Guid("09a70b54-9435-4fee-8335-c23873743c84"), "a78d5180-9d92-4d09-8b42-a2bc21dd156f", "Administrator cho app", "admin", "admin" });
+                values: new object[] { new Guid("09a70b54-9435-4fee-8335-c23873743c84"), "125390b7-dc1c-4051-af75-d0c9e9213d96", "Administrator cho app", "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "AppUserRoles",
@@ -475,7 +498,7 @@ namespace eShopSolution.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AppUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DoB", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("55163ed5-c8db-474f-8ed7-7de08f1a31a3"), 0, "9439260f-2545-4700-98d6-c5cdd6f91941", new DateTime(2020, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "tieplk@gmail.com", true, "Tiep", "Le", false, null, "tieplk@gmail.com", "admin", "AQAAAAEAACcQAAAAEGwBBaSYxTpiFi6zFPHDk5QUxdJQ+b7jMMmy007SIHkX6gRxNcYUKghRs6K0MvQa7A==", null, false, "", false, "admin" });
+                values: new object[] { new Guid("55163ed5-c8db-474f-8ed7-7de08f1a31a3"), 0, "af61949a-9993-4e49-8401-fb818eaa0da4", new DateTime(2020, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "tieplk@gmail.com", true, "Tiep", "Le", false, null, "tieplk@gmail.com", "admin", "AQAAAAEAACcQAAAAEOnaczxWG6RPLdulhoqFz8gnBYZv5JXLHHi/m1dbNFqM2P4WLQ3LN5G+7CmwII/tRw==", null, false, "", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
@@ -498,7 +521,7 @@ namespace eShopSolution.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "DateCreated", "IsFeatured", "Original", "Price" },
-                values: new object[] { 1, new DateTime(2021, 1, 12, 11, 6, 46, 757, DateTimeKind.Local).AddTicks(340), true, 10000m, 20000m });
+                values: new object[] { 1, new DateTime(2021, 1, 21, 13, 15, 34, 201, DateTimeKind.Local).AddTicks(309), true, 10000m, 20000m });
 
             migrationBuilder.InsertData(
                 table: "Slides",
@@ -589,6 +612,11 @@ namespace eShopSolution.Data.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RefreshTokens_UserId",
+                table: "RefreshTokens",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Transactions_UserId",
                 table: "Transactions",
                 column: "UserId");
@@ -640,6 +668,9 @@ namespace eShopSolution.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Promotions");
+
+            migrationBuilder.DropTable(
+                name: "RefreshTokens");
 
             migrationBuilder.DropTable(
                 name: "Slides");

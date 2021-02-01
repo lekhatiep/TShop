@@ -180,7 +180,7 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = new Guid("09a70b54-9435-4fee-8335-c23873743c84"),
-                            ConcurrencyStamp = "a78d5180-9d92-4d09-8b42-a2bc21dd156f",
+                            ConcurrencyStamp = "125390b7-dc1c-4051-af75-d0c9e9213d96",
                             Description = "Administrator cho app",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -257,7 +257,7 @@ namespace eShopSolution.Data.Migrations
                         {
                             Id = new Guid("55163ed5-c8db-474f-8ed7-7de08f1a31a3"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9439260f-2545-4700-98d6-c5cdd6f91941",
+                            ConcurrencyStamp = "af61949a-9993-4e49-8401-fb818eaa0da4",
                             DoB = new DateTime(2020, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tieplk@gmail.com",
                             EmailConfirmed = true,
@@ -266,7 +266,7 @@ namespace eShopSolution.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "tieplk@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGwBBaSYxTpiFi6zFPHDk5QUxdJQ+b7jMMmy007SIHkX6gRxNcYUKghRs6K0MvQa7A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOnaczxWG6RPLdulhoqFz8gnBYZv5JXLHHi/m1dbNFqM2P4WLQ3LN5G+7CmwII/tRw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -603,7 +603,7 @@ namespace eShopSolution.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 1, 12, 11, 6, 46, 757, DateTimeKind.Local).AddTicks(340),
+                            DateCreated = new DateTime(2021, 1, 21, 13, 15, 34, 201, DateTimeKind.Local).AddTicks(309),
                             IsFeatured = true,
                             Original = 10000m,
                             Price = 20000m,
@@ -791,6 +791,36 @@ namespace eShopSolution.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Promotions");
+                });
+
+            modelBuilder.Entity("eShopSolution.Data.Entities.RefreshToken", b =>
+                {
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Invalidated")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("JwtId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Used")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Token");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("eShopSolution.Data.Entities.Slide", b =>
@@ -1021,6 +1051,15 @@ namespace eShopSolution.Data.Migrations
                     b.HasOne("eShopSolution.Data.Entities.Product", "Product")
                         .WithMany("ProductTranslations")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("eShopSolution.Data.Entities.RefreshToken", b =>
+                {
+                    b.HasOne("eShopSolution.Data.Entities.AppUser", "AppUser")
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
