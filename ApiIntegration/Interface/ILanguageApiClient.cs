@@ -1,9 +1,9 @@
-﻿using eShopSolution.ViewModels.Common;
-using eShopSolution.ViewModels.System.Languages;
+﻿using TShopSolution.ViewModels.Common;
+using TShopSolution.ViewModels.System.Languages;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace eShopSolution.ApiIntegration.Interface
+namespace TShopSolution.ApiIntegration.Interface
 {
     public interface ILanguageApiClient
     {

@@ -1,9 +1,9 @@
-﻿using eShopSolution.ViewModels.Common;
-using eShopSolution.ViewModels.System.Users;
+﻿using TShopSolution.ViewModels.Common;
+using TShopSolution.ViewModels.System.Users;
 using System;
 using System.Threading.Tasks;
 
-namespace eShopSolution.ApiIntegration.Interface
+namespace TShopSolution.ApiIntegration.Interface
 {
     public interface IUserApiClient
     {
