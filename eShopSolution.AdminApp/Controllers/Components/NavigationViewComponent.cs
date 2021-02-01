@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using eShopSolution.AdminApp.Models;
-using eShopSolution.ApiIntegration.Interface;
-using eShopSolution.Utilities.Constant;
+using TShopSolution.AdminApp.Models;
+using TShopSolution.ApiIntegration.Interface;
+using TShopSolution.Utilities.Constant;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace eShopSolution.AdminApp.Controllers.Components
+namespace TShopSolution.AdminApp.Controllers.Components
 {
     public class NavigationViewComponent : ViewComponent
     {

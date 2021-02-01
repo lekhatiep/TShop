@@ -1,6 +1,6 @@
-﻿using eShopSolution.Data.EF;
-using eShopSolution.ViewModels.Common;
-using eShopSolution.ViewModels.System.Languages;
+﻿using TShopSolution.Data.EF;
+using TShopSolution.ViewModels.Common;
+using TShopSolution.ViewModels.System.Languages;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using tShop.Repository;
 
-namespace eShopSolution.Application.System.Languages
+namespace TShopSolution.Application.System.Languages
 {
     public class LanguageService : ILanguageService
     {

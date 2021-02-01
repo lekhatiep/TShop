@@ -1,12 +1,12 @@
-﻿using eShopSolution.ApiIntegration.Interface;
-using eShopSolution.ViewModels.Common.Slide;
+﻿using TShopSolution.ApiIntegration.Interface;
+using TShopSolution.ViewModels.Common.Slide;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace eShopSolution.ApiIntegration
+namespace TShopSolution.ApiIntegration
 {
     public class SlideApiClient : BaseApiClient, ISlideApiClient
     {

@@ -1,10 +1,10 @@
-﻿using eShopSolution.ViewModels.Common.Slide;
+﻿using TShopSolution.ViewModels.Common.Slide;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using tShop.Repository;
 
-namespace eShopSolution.Application.Common.Slide
+namespace TShopSolution.Application.Common.Slide
 {
     public class SlideService : ISlideService
     {

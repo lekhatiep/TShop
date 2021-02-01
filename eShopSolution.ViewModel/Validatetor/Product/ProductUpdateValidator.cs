@@ -1,7 +1,7 @@
-﻿using eShopSolution.ViewModels.Catalog.Products;
+﻿using TShopSolution.ViewModels.Catalog.Products;
 using FluentValidation;
 
-namespace eShopSolution.ViewModels.Validatetor.Product
+namespace TShopSolution.ViewModels.Validatetor.Product
 {
     public class ProductUpdateValidator : AbstractValidator<ProductUpdateRequest>
     {

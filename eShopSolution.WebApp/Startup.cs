@@ -1,7 +1,7 @@
-using eShopSolution.ApiIntegration;
-using eShopSolution.ApiIntegration.Interface;
-using eShopSolution.ViewModels.System.Users;
-using eShopSolution.WebApp.LocalizationResources;
+using TShopSolution.ApiIntegration;
+using TShopSolution.ApiIntegration.Interface;
+using TShopSolution.ViewModels.System.Users;
+using TShopSolution.WebApp.LocalizationResources;
 using FluentValidation.AspNetCore;
 using LazZiya.ExpressLocalization;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -16,7 +16,7 @@ using System;
 using System.Globalization;
 using System.Net.Http;
 
-namespace eShopSolution.WebApp
+namespace TShopSolution.WebApp
 {
     public class Startup
     {

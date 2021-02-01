@@ -1,7 +1,7 @@
-﻿using eShopSolution.ApiIntegration.Interface;
-using eShopSolution.Utilities.Constant;
-using eShopSolution.ViewModels.Cart;
-using eShopSolution.WebApp.Models;
+﻿using TShopSolution.ApiIntegration.Interface;
+using TShopSolution.Utilities.Constant;
+using TShopSolution.ViewModels.Cart;
+using TShopSolution.WebApp.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eShopSolution.WebApp.Controllers
+namespace TShopSolution.WebApp.Controllers
 {
     public class CartController : Controller
     {

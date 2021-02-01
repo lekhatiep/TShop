@@ -5,15 +5,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using eShopSolution.WebApp.Models;
+using TShopSolution.WebApp.Models;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Http;
 using LazZiya.ExpressLocalization;
-using eShopSolution.ApiIntegration.Interface;
+using TShopSolution.ApiIntegration.Interface;
 using System.Globalization;
-using eShopSolution.Utilities.Constant;
+using TShopSolution.Utilities.Constant;
 
-namespace eShopSolution.WebApp.Controllers
+namespace TShopSolution.WebApp.Controllers
 {
     public class HomeController : Controller
     {

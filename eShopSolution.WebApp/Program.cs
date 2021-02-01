@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace eShopSolution.WebApp
+namespace TShopSolution.WebApp
 {
     public class Program
     {

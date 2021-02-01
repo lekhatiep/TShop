@@ -1,8 +1,8 @@
-﻿using eShopSolution.ViewModels.Common;
+﻿using TShopSolution.ViewModels.Common;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace eShopSolution.WebApp.Controllers.Components
+namespace TShopSolution.WebApp.Controllers.Components
 {
     public class PagerViewComponent : ViewComponent
     {

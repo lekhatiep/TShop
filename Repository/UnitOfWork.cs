@@ -1,5 +1,5 @@
-﻿using eShopSolution.Data.EF;
-using eShopSolution.Data.Entities;
+﻿using TShopSolution.Data.EF;
+using TShopSolution.Data.Entities;
 using System;
 using System.Threading.Tasks;
 using tShop.Repository.Interface;

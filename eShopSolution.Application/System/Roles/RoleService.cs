@@ -1,6 +1,6 @@
-﻿using eShopSolution.Data.Entities;
-using eShopSolution.ViewModels.Common;
-using eShopSolution.ViewModels.System.Roles;
+﻿using TShopSolution.Data.Entities;
+using TShopSolution.ViewModels.Common;
+using TShopSolution.ViewModels.System.Roles;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eShopSolution.Application.System.Roles
+namespace TShopSolution.Application.System.Roles
 {
     public class RoleService : IRoleService
     {

@@ -1,4 +1,4 @@
-﻿using eShopSolution.Utilities.Constant;
+﻿using TShopSolution.Utilities.Constant;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -9,7 +9,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eShopSolution.ApiIntegration
+namespace TShopSolution.ApiIntegration
 {
     public class BaseApiClient
     {

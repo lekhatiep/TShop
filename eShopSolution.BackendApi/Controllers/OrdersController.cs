@@ -1,9 +1,9 @@
-﻿using eShopSolution.Application.Catolog.Orders;
-using eShopSolution.ViewModels.Cart;
+﻿using TShopSolution.Application.Catolog.Orders;
+using TShopSolution.ViewModels.Cart;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace eShopSolution.BackendApi.Controllers
+namespace TShopSolution.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

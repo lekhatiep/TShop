@@ -1,14 +1,14 @@
-﻿using eShopSolution.ApiIntegration.Interface;
-using eShopSolution.ApiIntegration;
-using eShopSolution.ViewModels.Common;
-using eShopSolution.ViewModels.System.Languages;
+﻿using TShopSolution.ApiIntegration.Interface;
+using TShopSolution.ApiIntegration;
+using TShopSolution.ViewModels.Common;
+using TShopSolution.ViewModels.System.Languages;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace eShopSolution.ApiIntegration
+namespace TShopSolution.ApiIntegration
 {
     public class LanguageApiClient : BaseApiClient, ILanguageApiClient
     {

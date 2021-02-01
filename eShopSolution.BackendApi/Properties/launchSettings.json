@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "eShopSolution.BackendApi": {
+    "TShopSolution.BackendApi": {
       "commandName": "Project",
       "launchBrowser": false,
       "launchUrl": "swagger",

@@ -1,25 +1,25 @@
-﻿using eShopSolution.Data.EF;
-using eShopSolution.Data.Entities;
-using eShopSolution.Utilities;
+﻿using TShopSolution.Data.EF;
+using TShopSolution.Data.Entities;
+using TShopSolution.Utilities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
-using eShopSolution.ViewModels.Common;
+using TShopSolution.ViewModels.Common;
 using Microsoft.AspNetCore.Http;
 using System.Net.Http.Headers;
 using System.IO;
-using eShopSolution.Application.Common;
-using eShopSolution.ViewModels.Catalog.ProductImages;
-using eShopSolution.ViewModels.Catalog.Products;
-using eShopSolution.Application.Catolog.ProductImages;
-using eShopSolution.ViewModels.Catalog.Category;
-using eShopSolution.Utilities.Constant;
+using TShopSolution.Application.Common;
+using TShopSolution.ViewModels.Catalog.ProductImages;
+using TShopSolution.ViewModels.Catalog.Products;
+using TShopSolution.Application.Catolog.ProductImages;
+using TShopSolution.ViewModels.Catalog.Category;
+using TShopSolution.Utilities.Constant;
 using tShop.Repository;
 
-namespace eShopSolution.Application.Catolog.Products
+namespace TShopSolution.Application.Catolog.Products
 {
     public class ProductService : IProductService
     {

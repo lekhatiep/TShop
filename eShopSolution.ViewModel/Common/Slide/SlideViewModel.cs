@@ -1,4 +1,4 @@
-﻿namespace eShopSolution.ViewModels.Common.Slide
+﻿namespace TShopSolution.ViewModels.Common.Slide
 {
     public class SlideViewModel
     {

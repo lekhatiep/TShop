@@ -1,12 +1,12 @@
-﻿using eShopSolution.Application.Catolog.ProductImages;
-using eShopSolution.ViewModels.Catalog.Category;
-using eShopSolution.ViewModels.Catalog.ProductImages;
-using eShopSolution.ViewModels.Catalog.Products;
-using eShopSolution.ViewModels.Common;
+﻿using TShopSolution.Application.Catolog.ProductImages;
+using TShopSolution.ViewModels.Catalog.Category;
+using TShopSolution.ViewModels.Catalog.ProductImages;
+using TShopSolution.ViewModels.Catalog.Products;
+using TShopSolution.ViewModels.Common;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace eShopSolution.Application.Catolog.Products
+namespace TShopSolution.Application.Catolog.Products
 {
     public interface IProductService
     {

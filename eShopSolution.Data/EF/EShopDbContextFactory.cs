@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace eShopSolution.Data.EF
+namespace TShopSolution.Data.EF
 {
     public class EShopDbContextFactory : IDesignTimeDbContextFactory<EShopDbContext>
     {
@@ -17,7 +17,7 @@ namespace eShopSolution.Data.EF
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            var connectionString = configuration.GetConnectionString("EShopSolutionDB");
+            var connectionString = configuration.GetConnectionString("TShopSolutionDB");
 
             var optionsBuilder = new DbContextOptionsBuilder<EShopDbContext>();
             optionsBuilder.UseSqlServer(connectionString);

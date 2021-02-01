@@ -1,4 +1,4 @@
-﻿namespace eShopSolution.ViewModels.Catalog.Category
+﻿namespace TShopSolution.ViewModels.Catalog.Category
 {
     public class CategoryViewModel
     {

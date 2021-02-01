@@ -1,6 +1,6 @@
-using eShopSolution.ApiIntegration;
-using eShopSolution.ApiIntegration.Interface;
-using eShopSolution.ViewModels.System.Users;
+using TShopSolution.ApiIntegration;
+using TShopSolution.ApiIntegration.Interface;
+using TShopSolution.ViewModels.System.Users;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 
-namespace eShopSolution.AdminApp
+namespace TShopSolution.AdminApp
 {
     public class Startup
     {

@@ -1,13 +1,13 @@
-﻿using eShopSolution.Data.EF;
-using eShopSolution.Data.Entities;
-using eShopSolution.ViewModels.Cart;
+﻿using TShopSolution.Data.EF;
+using TShopSolution.Data.Entities;
+using TShopSolution.ViewModels.Cart;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using tShop.Repository;
 
-namespace eShopSolution.Application.Catolog.Orders
+namespace TShopSolution.Application.Catolog.Orders
 {
     public class OrderService : IOrderService
     {

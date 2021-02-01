@@ -1,7 +1,7 @@
-﻿using eShopSolution.ViewModels.System.Languages;
+﻿using TShopSolution.ViewModels.System.Languages;
 using System.Collections.Generic;
 
-namespace eShopSolution.WebApp.Models
+namespace TShopSolution.WebApp.Models
 {
     public class NavigationViewModel
     {

@@ -1,7 +1,7 @@
-﻿using eShopSolution.ViewModels.Cart;
+﻿using TShopSolution.ViewModels.Cart;
 using System.Threading.Tasks;
 
-namespace eShopSolution.ApiIntegration.Interface
+namespace TShopSolution.ApiIntegration.Interface
 {
     public interface IOrderApiClient
     {

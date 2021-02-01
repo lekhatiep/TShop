@@ -1,8 +1,8 @@
-﻿using eShopSolution.Data.Entities;
+﻿using TShopSolution.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace eShopSolution.Data.Configurations
+namespace TShopSolution.Data.Configurations
 {
     public class SlideConfiguration : IEntityTypeConfiguration<Slide>
     {

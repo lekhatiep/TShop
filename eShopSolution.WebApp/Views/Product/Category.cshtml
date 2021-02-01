@@ -1,7 +1,7 @@
 ﻿@model CategoryProductViewModel;
 @inject Microsoft.Extensions.Configuration.IConfiguration _config;
 @inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
-@using eShopSolution.Utilities.Constant;
+@using TShopSolution.Utilities.Constant;
 @{
     ViewData["Title"] = Model.category.Name + (Model.products.PageIndex == 1 ? "" : $" - {_loc["Page"]}+{Model.products.PageIndex}");
     ViewData["Description"] = Model.category.Name + (Model.products.PageIndex == 1 ? "" : $" - {_loc["Page"]}+{Model.products.PageIndex}");

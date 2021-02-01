@@ -1,5 +1,5 @@
-﻿using eShopSolution.ApiIntegration.Interface;
-using eShopSolution.ViewModels.System.Users;
+﻿using TShopSolution.ApiIntegration.Interface;
+using TShopSolution.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
 
-namespace eShopSolution.WebApp.Controllers
+namespace TShopSolution.WebApp.Controllers
 {
     public class AduserController : Controller
     {

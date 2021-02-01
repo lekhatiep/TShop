@@ -1,12 +1,12 @@
-﻿using eShopSolution.Data.EF;
-using eShopSolution.ViewModels.Catalog.Category;
+﻿using TShopSolution.Data.EF;
+using TShopSolution.ViewModels.Catalog.Category;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using tShop.Repository;
 
-namespace eShopSolution.Application.Catolog.Category
+namespace TShopSolution.Application.Catolog.Category
 {
     public class CategoryService : ICategoryService
     {

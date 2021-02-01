@@ -1,9 +1,9 @@
-﻿using eShopSolution.Utilities.Constant;
+﻿using TShopSolution.Utilities.Constant;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace eShopSolution.Application.Common
+namespace TShopSolution.Application.Common
 {
     public class FileStorageService : IStrorageService
     {

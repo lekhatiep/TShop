@@ -1,7 +1,7 @@
-﻿using eShopSolution.ViewModels.Cart;
+﻿using TShopSolution.ViewModels.Cart;
 using System.Collections.Generic;
 
-namespace eShopSolution.WebApp.Models
+namespace TShopSolution.WebApp.Models
 {
     public class CheckoutViewModel
     {

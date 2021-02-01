@@ -1,8 +1,8 @@
-﻿using eShopSolution.ViewModels.Catalog.Category;
+﻿using TShopSolution.ViewModels.Catalog.Category;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace eShopSolution.ApiIntegration.Interface
+namespace TShopSolution.ApiIntegration.Interface
 {
     public interface ICategoryApiClient
     {

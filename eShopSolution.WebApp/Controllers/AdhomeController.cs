@@ -1,11 +1,11 @@
-﻿using eShopSolution.Utilities.Constant;
-using eShopSolution.WebApp.Models;
+﻿using TShopSolution.Utilities.Constant;
+using TShopSolution.WebApp.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
-namespace eShopSolution.WebApp.Controllers
+namespace TShopSolution.WebApp.Controllers
 {
     public class AdhomeController : Controller
     {

@@ -1,10 +1,10 @@
-﻿using eShopSolution.ViewModels.Catalog.Category;
-using eShopSolution.ViewModels.Catalog.ProductImages;
+﻿using TShopSolution.ViewModels.Catalog.Category;
+using TShopSolution.ViewModels.Catalog.ProductImages;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace eShopSolution.ViewModels.Catalog.Products
+namespace TShopSolution.ViewModels.Catalog.Products
 {
     public class ProductViewModel
     {

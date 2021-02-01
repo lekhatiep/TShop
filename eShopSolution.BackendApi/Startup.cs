@@ -1,15 +1,15 @@
-using eShopSolution.Application.Catolog.Category;
-using eShopSolution.Application.Catolog.Orders;
-using eShopSolution.Application.Catolog.Products;
-using eShopSolution.Application.Common;
-using eShopSolution.Application.Common.Slide;
-using eShopSolution.Application.System.Languages;
-using eShopSolution.Application.System.Roles;
-using eShopSolution.Application.System.Users;
-using eShopSolution.Data.EF;
-using eShopSolution.Data.Entities;
-using eShopSolution.Utilities.Constant;
-using eShopSolution.ViewModels.System.Users;
+using TShopSolution.Application.Catolog.Category;
+using TShopSolution.Application.Catolog.Orders;
+using TShopSolution.Application.Catolog.Products;
+using TShopSolution.Application.Common;
+using TShopSolution.Application.Common.Slide;
+using TShopSolution.Application.System.Languages;
+using TShopSolution.Application.System.Roles;
+using TShopSolution.Application.System.Users;
+using TShopSolution.Data.EF;
+using TShopSolution.Data.Entities;
+using TShopSolution.Utilities.Constant;
+using TShopSolution.ViewModels.System.Users;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using tShop.Repository;
 using tShop.Repository.Interface;
 
-namespace eShopSolution.BackendApi
+namespace TShopSolution.BackendApi
 {
     public class Startup
     {

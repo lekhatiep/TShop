@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace eShopSolution.ViewModels.Catalog.Products
+namespace TShopSolution.ViewModels.Catalog.Products
 {
     public class ProductDeleteRequest
     {

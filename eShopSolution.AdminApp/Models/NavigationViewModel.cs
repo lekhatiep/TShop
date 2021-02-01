@@ -1,10 +1,10 @@
-﻿using eShopSolution.ViewModels.System.Languages;
+﻿using TShopSolution.ViewModels.System.Languages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eShopSolution.AdminApp.Models
+namespace TShopSolution.AdminApp.Models
 {
     public class NavigationViewModel
     {

@@ -1,9 +1,9 @@
-﻿using eShopSolution.ViewModels.Common;
-using eShopSolution.ViewModels.System.Roles;
+﻿using TShopSolution.ViewModels.Common;
+using TShopSolution.ViewModels.System.Roles;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace eShopSolution.ApiIntegration.Interface
+namespace TShopSolution.ApiIntegration.Interface
 {
     public interface IRoleApiClient
     {

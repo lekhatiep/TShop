@@ -1,9 +1,9 @@
-﻿using eShopSolution.Data.Enums;
+﻿using TShopSolution.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace eShopSolution.Data.Entities
+namespace TShopSolution.Data.Entities
 {
     public class Promotion
     {

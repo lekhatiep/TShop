@@ -1,4 +1,4 @@
-﻿namespace eShopSolution.WebApp.LocalizationResources
+﻿namespace TShopSolution.WebApp.LocalizationResources
 {
     public class ViewLocalizationResource
     {

@@ -1,8 +1,8 @@
-﻿using eShopSolution.ViewModels.Catalog.Products;
-using eShopSolution.ViewModels.Common.Slide;
+﻿using TShopSolution.ViewModels.Catalog.Products;
+using TShopSolution.ViewModels.Common.Slide;
 using System.Collections.Generic;
 
-namespace eShopSolution.WebApp.Models
+namespace TShopSolution.WebApp.Models
 {
     public class HomeViewModel
     {
