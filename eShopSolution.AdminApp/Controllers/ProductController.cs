@@ -1,8 +1,8 @@
-﻿using eShopSolution.ApiIntegration.Interface;
-using eShopSolution.Utilities.Constant;
-using eShopSolution.ViewModels.Catalog.Category;
-using eShopSolution.ViewModels.Catalog.Products;
-using eShopSolution.ViewModels.System.Users;
+﻿using TShopSolution.ApiIntegration.Interface;
+using TShopSolution.Utilities.Constant;
+using TShopSolution.ViewModels.Catalog.Category;
+using TShopSolution.ViewModels.Catalog.Products;
+using TShopSolution.ViewModels.System.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eShopSolution.AdminApp.Controllers
+namespace TShopSolution.AdminApp.Controllers
 {
     public class ProductController : Controller
     {
@@ -34,7 +34,7 @@ namespace eShopSolution.AdminApp.Controllers
             _categoryApiClient = categoryApiClient;
         }
 
-        public async Task<IActionResult> Index(string keyword, int? categoryId, int pageIndex = 1, int pageSize = 10)
+        public async Task<IActionResult> Index(string keyword, int? categoryId, int pageIndex = 1, int pageSize = 5)
         {
             var currentLang = _httpContextAccessor.HttpContext.Session.GetString(SystemConstant.AppSettings.DefaultLanguageId);
             var request = new GetManageProductPagingRequest()

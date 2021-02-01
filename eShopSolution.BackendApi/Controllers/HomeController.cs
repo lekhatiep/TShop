@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using eShopSolution.BackendApi.Models;
+using TShopSolution.BackendApi.Models;
 
-namespace eShopSolution.BackendApi.Controllers
+namespace TShopSolution.BackendApi.Controllers
 {
     public class HomeController : Controller
     {

@@ -1,9 +1,9 @@
-﻿using eShopSolution.Application.Common.Slide;
+﻿using TShopSolution.Application.Common.Slide;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace eShopSolution.BackendApi.Controllers
+namespace TShopSolution.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

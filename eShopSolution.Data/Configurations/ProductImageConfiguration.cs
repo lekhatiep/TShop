@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using eShopSolution.Data.Entities;
+using TShopSolution.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Security.Cryptography.X509Certificates;
 
-namespace eShopSolution.Data.Configurations
+namespace TShopSolution.Data.Configurations
 {
     public class ProductImageConfiguration : IEntityTypeConfiguration<ProductImage>
     {

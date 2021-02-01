@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using eShopSolution.Application.System.Roles;
-using eShopSolution.Application.System.Users;
+using TShopSolution.Application.System.Roles;
+using TShopSolution.Application.System.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace eShopSolution.BackendApi.Controllers
+namespace TShopSolution.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

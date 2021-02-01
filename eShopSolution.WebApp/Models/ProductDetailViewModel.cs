@@ -1,7 +1,7 @@
-﻿using eShopSolution.ViewModels.Catalog.Category;
-using eShopSolution.ViewModels.Catalog.Products;
+﻿using TShopSolution.ViewModels.Catalog.Category;
+using TShopSolution.ViewModels.Catalog.Products;
 
-namespace eShopSolution.WebApp.Models
+namespace TShopSolution.WebApp.Models
 {
     public class ProductDetailViewModel
     {

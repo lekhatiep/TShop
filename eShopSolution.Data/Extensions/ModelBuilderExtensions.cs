@@ -1,12 +1,12 @@
-﻿using eShopSolution.Data.Entities;
-using eShopSolution.Data.Enums;
+﻿using TShopSolution.Data.Entities;
+using TShopSolution.Data.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace eShopSolution.Data.Extensions
+namespace TShopSolution.Data.Extensions
 {
     public static class ModelBuilderExtensions
     {

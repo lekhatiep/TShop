@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace eShopSolution.Utilities.Constant
+namespace TShopSolution.Utilities.Constant
 {
     public class SystemConstant
     {
-        public const string MainConnectionString = "EShopSolutionDB";
+        public const string MainConnectionString = "TShopSolutionDB";
 
         public class AppSettings
         {

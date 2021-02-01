@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace eShopSolution.Data.Migrations
+namespace TShopSolution.Data.Migrations
 {
     public partial class InitialCreate : Migration
     {

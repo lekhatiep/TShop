@@ -1,4 +1,4 @@
-﻿using eShopSolution.Application.Catolog.Category;
+﻿using TShopSolution.Application.Catolog.Category;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eShopSolution.BackendApi.Controllers
+namespace TShopSolution.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

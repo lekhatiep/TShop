@@ -1,11 +1,11 @@
-﻿using eShopSolution.ApiIntegration.Interface;
-using eShopSolution.ViewModels.Catalog.Products;
-using eShopSolution.WebApp.Models;
+﻿using TShopSolution.ApiIntegration.Interface;
+using TShopSolution.ViewModels.Catalog.Products;
+using TShopSolution.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using System.Threading.Tasks;
 
-namespace eShopSolution.WebApp.Controllers
+namespace TShopSolution.WebApp.Controllers
 {
     public class ProductController : Controller
     {

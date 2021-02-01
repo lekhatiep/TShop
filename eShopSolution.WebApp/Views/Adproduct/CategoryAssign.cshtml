@@ -1,0 +1,45 @@
+﻿@model TShopSolution.ViewModels.Catalog.Category.CategoryAssignRequest;
+
+@{ ViewData["Title"] = "Gán danh mục cho sản phẩm"; }
+
+<div class="container-fluid">
+    <h1 class="mt-4">Gán danh mục cho sản phẩm</h1>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            Các danh mục cho sản phẩm
+        </div>
+        <div class="card-body">
+            <div class="col-md-4">
+                <form asp-action="AssignCategory">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input asp-for="Id" class="form-control" type="hidden" />
+                    <table>
+                        <tbody>
+                            @for (var i = 0; i < Model.Categories.Count; i++)
+                            {
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            @Model.Categories[i].Name
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <input asp-for="Categories[i].Selected" type="checkbox" />
+                            <input asp-for="Categories[i].Id" type="hidden" />
+                            <input asp-for="Categories[i].Name" type="hidden" />
+                        </div>
+                    </td>
+                </tr>
+}
+                        </tbody>
+                    </table>
+                    <div class="form-group">
+                        <input type="submit" value="Lưu thay đổi" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

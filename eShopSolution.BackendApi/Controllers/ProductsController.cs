@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using eShopSolution.Application.Catolog.ProductImages;
-using eShopSolution.Application.Catolog.Products;
-using eShopSolution.ViewModels.Catalog.Category;
-using eShopSolution.ViewModels.Catalog.Products;
+using TShopSolution.Application.Catolog.ProductImages;
+using TShopSolution.Application.Catolog.Products;
+using TShopSolution.ViewModels.Catalog.Category;
+using TShopSolution.ViewModels.Catalog.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace eShopSolution.BackendApi.Controllers
+namespace TShopSolution.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    // [Authorize]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _manageProductService;
@@ -33,14 +33,8 @@ namespace eShopSolution.BackendApi.Controllers
             return Ok(products);
         }
 
-        //[HttpGet("{languageId}")]
-        //public async Task<ActionResult> GetAllPaging(string languageId, [FromQuery] GetPublicProductPagingRequest request)
-        //{
-        //    var products = await _manageProductService.GetAllByCategoryId(languageId, request);
-        //    return Ok(products);
-        //}
-
         //http:localhost/product/1/vi-Vn
+        [AllowAnonymous]
         [HttpGet("{productId}/{languageId}")]
         public async Task<ActionResult> GetById(int productId, string languageId)
         {

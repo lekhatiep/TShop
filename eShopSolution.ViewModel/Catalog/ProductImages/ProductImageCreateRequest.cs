@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace eShopSolution.Application.Catolog.ProductImages
+namespace TShopSolution.Application.Catolog.ProductImages
 {
     public class ProductImageCreateRequest
     {

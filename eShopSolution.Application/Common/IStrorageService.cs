@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eShopSolution.Application.Common
+namespace TShopSolution.Application.Common
 {
     //Save file and get infor of File
     public interface IStrorageService

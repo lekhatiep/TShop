@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace eShopSolution.Data
+namespace TShopSolution.Data
 {
     public class Class1
     {

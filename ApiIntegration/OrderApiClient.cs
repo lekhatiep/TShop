@@ -1,6 +1,6 @@
-﻿using eShopSolution.ApiIntegration.Interface;
-using eShopSolution.Utilities.Constant;
-using eShopSolution.ViewModels.Cart;
+﻿using TShopSolution.ApiIntegration.Interface;
+using TShopSolution.Utilities.Constant;
+using TShopSolution.ViewModels.Cart;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -10,7 +10,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eShopSolution.ApiIntegration
+namespace TShopSolution.ApiIntegration
 {
     public class OrderApiClient : IOrderApiClient
     {

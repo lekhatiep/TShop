@@ -1,20 +1,21 @@
-﻿using eShopSolution.Data.EF;
-using eShopSolution.Data.Entities;
-using eShopSolution.ViewModels.Cart;
+﻿using TShopSolution.Data.EF;
+using TShopSolution.Data.Entities;
+using TShopSolution.ViewModels.Cart;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using tShop.Repository;
 
-namespace eShopSolution.Application.Catolog.Orders
+namespace TShopSolution.Application.Catolog.Orders
 {
     public class OrderService : IOrderService
     {
-        private readonly EShopDbContext _context;
+        private readonly UnitOfWork _unitOfWork;
 
-        public OrderService(EShopDbContext context)
+        public OrderService(UnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<int> Create(CheckoutRequest request)
@@ -42,8 +43,8 @@ namespace eShopSolution.Application.Catolog.Orders
                 OrderDetails = orderDetails
             };
 
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync();
+            _unitOfWork.OrderRepository.Add(order);
+            await _unitOfWork.SaveChangesAsync();
 
             return order.Id;
         }

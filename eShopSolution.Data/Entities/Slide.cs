@@ -1,6 +1,6 @@
-﻿using eShopSolution.Data.Enums;
+﻿using TShopSolution.Data.Enums;
 
-namespace eShopSolution.Data.Entities
+namespace TShopSolution.Data.Entities
 {
     public class Slide
     {

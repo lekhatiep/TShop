@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace eShopSolution.AdminApp.Controllers
+namespace TShopSolution.AdminApp.Controllers
 {
     public class BaseController : Controller
     {

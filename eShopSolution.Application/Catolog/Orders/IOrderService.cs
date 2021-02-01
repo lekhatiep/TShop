@@ -1,10 +1,10 @@
-﻿using eShopSolution.ViewModels.Cart;
+﻿using TShopSolution.ViewModels.Cart;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eShopSolution.Application.Catolog.Orders
+namespace TShopSolution.Application.Catolog.Orders
 {
     public interface IOrderService
     {

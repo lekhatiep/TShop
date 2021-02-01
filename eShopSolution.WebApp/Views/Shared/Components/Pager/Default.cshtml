@@ -1,4 +1,4 @@
-﻿@model eShopSolution.ViewModels.Common.PagedResultBase
+﻿@model TShopSolution.ViewModels.Common.PagedResultBase
 @{
     var urlTemplate = Url.Action() + "?page={0}";
     var request = ViewContext.HttpContext.Request;
@@ -27,7 +27,7 @@
 
 @if (Model.PageCount > 1)
 {
-    <ul>
+    <ul class="pagination">
         @if (Model.PageIndex != startIndex)
         {
             <li class="page-item">

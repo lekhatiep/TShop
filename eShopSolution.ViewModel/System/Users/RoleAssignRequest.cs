@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace eShopSolution.ViewModels.System.Users
+namespace TShopSolution.ViewModels.System.Users
 {
     public class RoleAssignRequest
     {

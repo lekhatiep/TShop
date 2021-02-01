@@ -68,12 +68,22 @@
 [class^="icon-"], [class*=" icon-"] {background-image: none;}
 .navbar .nav > li > a {padding:10px;color: #DDD;text-shadow: none;font-size: 16px;}
 .navbar .nav > li > a:hover{color:#fff}
-#logoArea, #logoArea a{outline:none;}
+#logoArea, #logoArea a {
+    outline: none;
+    color: black;
+    font-weight: 600;
+}
 .alignR .checkbox input[type="checkbox"] {float: right;margin: 4px 0 8px 11px;}
 
-.navbar .nav.pull-right, #sideManu {overflow:hidden;}
+.navbar .nav.pull-right, #sideManu {
+    overflow: hidden;
+    margin-top: 11px;
+}
 #logoArea  #smallScreen {margin: 21px 14px 0 0;}
-.navbar-search {margin-top: 8px;}
+.navbar-search {
+    margin-top: 20px;
+    margin-left: 20%;
+}
 /* Responsive--------------------- */
 /* Large desktop */
 @media (min-width: 1200px) {  }

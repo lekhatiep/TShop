@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace eShopSolution.ViewModels.System.Languages
+namespace TShopSolution.ViewModels.System.Languages
 {
     public class LanguageVM
     {

@@ -1,6 +1,6 @@
-﻿using eShopSolution.ViewModels.Common;
+﻿using TShopSolution.ViewModels.Common;
 
-namespace eShopSolution.ViewModels.Catalog.Products
+namespace TShopSolution.ViewModels.Catalog.Products
 {
     public class GetManageProductPagingRequest : PagingRequestBase
     {

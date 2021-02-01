@@ -1,34 +1,31 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using TShopSolution.Application.Catolog.Category;
+using TShopSolution.Application.Catolog.Orders;
+using TShopSolution.Application.Catolog.Products;
+using TShopSolution.Application.Common;
+using TShopSolution.Application.Common.Slide;
+using TShopSolution.Application.System.Languages;
+using TShopSolution.Application.System.Roles;
+using TShopSolution.Application.System.Users;
+using TShopSolution.Data.EF;
+using TShopSolution.Data.Entities;
+using TShopSolution.Utilities.Constant;
+using TShopSolution.ViewModels.System.Users;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using eShopSolution.Data.EF;
-using eShopSolution.Utilities.Constant;
-using Microsoft.EntityFrameworkCore;
-using eShopSolution.Application.Catolog.Products;
-using Microsoft.OpenApi.Models;
-using eShopSolution.Application.Common;
-using Microsoft.AspNetCore.Identity;
-using eShopSolution.Data.Entities;
-using eShopSolution.Application.System.Users;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using eShopSolution.ViewModels.System.Users;
-using FluentValidation.AspNetCore;
-using eShopSolution.Application.System.Roles;
-using eShopSolution.Application.System.Languages;
-using eShopSolution.Application.Catolog.Category;
-using eShopSolution.Application.Common.Slide;
-using eShopSolution.Application.Catolog.Orders;
+using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
+using tShop.Repository;
+using tShop.Repository.Interface;
 
-namespace eShopSolution.BackendApi
+namespace TShopSolution.BackendApi
 {
     public class Startup
     {
@@ -62,6 +59,18 @@ namespace eShopSolution.BackendApi
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<ILanguageService, LanguageService>();
             services.AddTransient<ISlideService, SlideService>();
+            //Add Regiser Repository Entity
+            services.AddTransient<IGenericRepository<Slide>, GenericRepository<Slide>>();
+            services.AddTransient<IGenericRepository<Order>, GenericRepository<Order>>();
+            services.AddTransient<IGenericRepository<Category>, GenericRepository<Category>>();
+            services.AddTransient<IGenericRepository<CategoryTranslation>, GenericRepository<CategoryTranslation>>();
+            services.AddTransient<IGenericRepository<Product>, GenericRepository<Product>>();
+            services.AddTransient<IGenericRepository<ProductInCategory>, GenericRepository<ProductInCategory>>();
+            services.AddTransient<IGenericRepository<ProductImage>, GenericRepository<ProductImage>>();
+            services.AddTransient<IGenericRepository<ProductTranslation>, GenericRepository<ProductTranslation>>();
+            services.AddTransient<IGenericRepository<Language>, GenericRepository<Language>>();
+            services.AddTransient<UnitOfWork>();
+
             //Register Validator each
             //services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
             //services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();

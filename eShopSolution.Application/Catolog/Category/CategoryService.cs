@@ -1,27 +1,29 @@
-﻿using eShopSolution.Data.EF;
-using eShopSolution.ViewModels.Catalog.Category;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
+﻿using TShopSolution.Data.EF;
+using TShopSolution.ViewModels.Catalog.Category;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using tShop.Repository;
 
-namespace eShopSolution.Application.Catolog.Category
+namespace TShopSolution.Application.Catolog.Category
 {
     public class CategoryService : ICategoryService
     {
-        private readonly EShopDbContext _context;
+        private readonly UnitOfWork _unitOfWork;
 
-        public CategoryService(EShopDbContext context)
+        public CategoryService(UnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<List<CategoryViewModel>> GetAll(string languageId)
         {
-            var query = from c in _context.Categories
-                        join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId
+            var query = from c in _unitOfWork.CategoryRepository.GetQuery()
+                        join ct in _unitOfWork.CategoryTranslationRepository.GetQuery() on c.Id equals ct.CategoryId
                         where ct.LanguageId == languageId
                         select new { c, ct };
+
             var data = await query.Select(x => new CategoryViewModel
             {
                 Id = x.c.Id,
@@ -34,8 +36,8 @@ namespace eShopSolution.Application.Catolog.Category
 
         public async Task<CategoryViewModel> GetCategoryById(int id, string languageId)
         {
-            var query = from c in _context.Categories
-                        join ct in _context.CategoryTranslations on c.Id equals ct.CategoryId
+            var query = from c in _unitOfWork.CategoryRepository.GetQuery()
+                        join ct in _unitOfWork.CategoryTranslationRepository.GetQuery() on c.Id equals ct.CategoryId
                         where ct.LanguageId == languageId
                         && ct.CategoryId == id
                         select new { c, ct };

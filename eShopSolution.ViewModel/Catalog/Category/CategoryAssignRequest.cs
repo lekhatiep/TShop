@@ -1,7 +1,7 @@
-﻿using eShopSolution.ViewModels.System.Users;
+﻿using TShopSolution.ViewModels.System.Users;
 using System.Collections.Generic;
 
-namespace eShopSolution.ViewModels.Catalog.Category
+namespace TShopSolution.ViewModels.Catalog.Category
 {
     public class CategoryAssignRequest
     {

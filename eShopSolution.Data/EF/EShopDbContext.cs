@@ -2,13 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using eShopSolution.Data.Entities;
-using eShopSolution.Data.Configurations;
-using eShopSolution.Data.Extensions;
+using TShopSolution.Data.Entities;
+using TShopSolution.Data.Configurations;
+using TShopSolution.Data.Extensions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
-namespace eShopSolution.Data.EF
+namespace TShopSolution.Data.EF
 {
     public class EShopDbContext : IdentityDbContext<AppUser, AppRole, Guid>
     {

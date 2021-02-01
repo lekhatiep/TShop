@@ -1,6 +1,6 @@
-﻿using eShopSolution.ApiIntegration.Interface;
-using eShopSolution.Utilities.Constant;
-using eShopSolution.ViewModels.System.Users;
+﻿using TShopSolution.ApiIntegration.Interface;
+using TShopSolution.Utilities.Constant;
+using TShopSolution.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +14,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eShopSolution.WebApp.Controllers
+namespace TShopSolution.WebApp.Controllers
 {
     public class AccountController : Controller
     {
