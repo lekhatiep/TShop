@@ -1,4 +1,4 @@
-﻿using eShopSolution.Data.EF;
+﻿using TShopSolution.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
