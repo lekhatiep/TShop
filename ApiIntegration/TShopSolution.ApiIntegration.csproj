@@ -9,8 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\eShopSolution.ViewModel\TShopSolution.ViewModels.csproj" />
+    <ProjectReference Include="..\TShopSolution.ViewModel\TShopSolution.ViewModels.csproj" />
     <ProjectReference Include="..\Utilities\TShopSolution.Utilities.csproj" />
   </ItemGroup>
-
 </Project>
