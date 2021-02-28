@@ -11,8 +11,12 @@
             const id = $(this).data('id');
             const languageId = $("#currentLang").val();
             const quantity = parseInt($(".quantity_" + id + "").val()) + 1;
-
-            UpdateItem(languageId, id, quantity);
+            
+            var maxQan = document.getElementById("product_id"+ id).max; 
+            if (quantity <= maxQan) {
+                UpdateItem(languageId, id, quantity);
+            }
+           
         });
 
         $('body').on("click", '.btn_minus', function (e) {
@@ -21,8 +25,11 @@
             const id = $(this).data('id');
             const languageId = $("#currentLang").val();
             const quantity = parseInt($(".quantity_" + id + "").val()) - 1;
-
-            UpdateItem(languageId, id, quantity);
+            var minQan = document.getElementById("product_id" + id).min;
+            if (quantity >= minQan) {
+                UpdateItem(languageId, id, quantity);
+            }
+           
         });
     }
     function DelItemData() {
@@ -62,13 +69,14 @@
                 var numberItem = 0;
 
                 $.each(res, function (i, item) {
+                    console.log(item);
                     var ammount = numberItem += item.quantity;
                     amount = item.price * item.quantity;
                     html += "<tr>"
                         + "<td><img width=\"60\" src=\"" + baseAddress + item.image + "\" alt=\"\" /></td>"
                         + "<td>" + item.description + "</td>"
                         + "<td>"
-                        + "<div class=\"input-append\"><input value=" + item.quantity + " class=\"span1 quantity_" + item.productId + "\" style=\"max-width:34px\" placeholder=\"1\" id=\"product_id" + item.productId + "\" size=\"16\" type=\"text\"><button class=\"btn btn_minus\" data-id=" + item.productId + " type=\"button\"><i class=\"icon-minus\"></i></button><button class=\"btn btn_plus\" data-id=" + item.productId + " type=\"button\"><i class=\"icon-plus\"></i><\/button><button class=\"btn btn-danger btn_remove\" data-id=" + item.productId + " type=\"button\"><i class=\"icon-remove icon-white\"></i><\/button>"
+                        + "<div class=\"input-append\"><input min=\"1\" max="+item.stock+" value=" + item.quantity + " class=\"span1 quantity_" + item.productId + "\" style=\"max-width:34px;height: 30px;\" placeholder=\"1\" id=\"product_id" + item.productId + "\" size=\"16\" type=\"text\"><button class=\"btn btn_minus\" data-id=" + item.productId + " type=\"button\"><i class=\"icon-minus\"></i></button><button class=\"btn btn_plus\" data-id=" + item.productId + " type=\"button\"><i class=\"icon-plus\"></i><\/button><button class=\"btn btn-danger btn_remove\" data-id=" + item.productId + " type=\"button\"><i class=\"icon-remove icon-white\"></i><\/button>"
                         + "</div>"
                         + "</td>"
                         + "<td>" + numberWithCommas(item.price) + "</td>"
@@ -81,9 +89,10 @@
                 $("#tbl_cart_body").html(html);
                 $("#number_item_header").text(numberItem);
                 $(".item_header").text(numberItem);
+                $(".lbl_total").text(numberWithCommas(total));
             },
             error: function (e) {
-                console.log(e)
+                
             }
         })
     }

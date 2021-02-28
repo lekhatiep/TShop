@@ -10,7 +10,8 @@
     var culture = CultureInfo.CurrentCulture.Name;
     var urlWebApp = $"/{culture}/{_loc["productURL"]}";
 }
-
+<div class="CartNotification fhQCQR add-cart-msg "><p class="status"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"></path></svg> Thêm vào giỏ hàng thành công!</p></div>
+<div class="add-cart-msg-alert">Mặt hàng có sẵn chỉ còn <b>@Model.product.Stock</b> sản phẩm</div>
 <ul class="breadcrumb">
     <li><a href="/"><localize>Home</localize></a> <span class="divider">/</span></li>
     <li><a href="/@_loc["productURL"]"><localize>Products</localize></a> <span class="divider">/</span></li>
@@ -22,18 +23,18 @@
             <img src="@urlAPI@Model.product.Image" style="width:100%" alt="@Model.product.Name" />
         </a>
         <div id="differentview" class="moreOptopm carousel slide">
-            <div class="carousel-inner">
-                <div class="item active">
-                    <a href="themes/images/products/large/f1.jpg"> <img style="width:29%" src="themes/images/products/large/f1.jpg" alt="" /></a>
-                    <a href="themes/images/products/large/f2.jpg"> <img style="width:29%" src="themes/images/products/large/f2.jpg" alt="" /></a>
-                    <a href="themes/images/products/large/f3.jpg"> <img style="width:29%" src="themes/images/products/large/f3.jpg" alt="" /></a>
-                </div>
-                <div class="item">
-                    <a href="themes/images/products/large/f3.jpg"> <img style="width:29%" src="themes/images/products/large/f3.jpg" alt="" /></a>
-                    <a href="themes/images/products/large/f1.jpg"> <img style="width:29%" src="themes/images/products/large/f1.jpg" alt="" /></a>
-                    <a href="themes/images/products/large/f2.jpg"> <img style="width:29%" src="themes/images/products/large/f2.jpg" alt="" /></a>
-                </div>
-            </div>
+            @*<div class="carousel-inner">
+                    <div class="item active">
+                        <a href="themes/images/products/large/f1.jpg"> <img style="width:29%" src="themes/images/products/large/f1.jpg" alt="" /></a>
+                        <a href="themes/images/products/large/f2.jpg"> <img style="width:29%" src="themes/images/products/large/f2.jpg" alt="" /></a>
+                        <a href="themes/images/products/large/f3.jpg"> <img style="width:29%" src="themes/images/products/large/f3.jpg" alt="" /></a>
+                    </div>
+                    <div class="item">
+                        <a href="themes/images/products/large/f3.jpg"> <img style="width:29%" src="themes/images/products/large/f3.jpg" alt="" /></a>
+                        <a href="themes/images/products/large/f1.jpg"> <img style="width:29%" src="themes/images/products/large/f1.jpg" alt="" /></a>
+                        <a href="themes/images/products/large/f2.jpg"> <img style="width:29%" src="themes/images/products/large/f2.jpg" alt="" /></a>
+                    </div>
+                </div>*@
             <!--
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
             <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
@@ -57,12 +58,12 @@
         <hr class="soft" />
         <form class="form-horizontal qtyFrm">
             <div class="control-group">
-                <label class="control-label"><span>@Convert.ToDecimal(@Model.product.Price).ToString("C", CultureInfo.CurrentCulture)</span></label>
+                <label class="control-label"><span>@Convert.ToDecimal(@Model.product.Price).ToString("#,##0") <span>&#8363;</span></span></label>
                 <div class="controls">
                     @{
                         var qty = _loc["Qty"];
                     }
-                    <input type="number" class="span1" placeholder="@qty" />
+                    @qty <input type="number" id="qty-add-item" class="span1 qty-add-item" placeholder="" min="0" max="@Model.product.Stock" value="1" />
                     <a class="btn btn-add-cart" data-id="@Model.product.Id" href=""><localize>Add to</localize><i class="icon-shopping-cart"></i></a>
                 </div>
             </div>
@@ -70,19 +71,19 @@
 
         <hr class="soft" />
         <h4>@Model.product.Stock <localize>items in stock</localize></h4>
-        <form class="form-horizontal qtyFrm pull-right">
-            <div class="control-group">
-                <label class="control-label"><span>Color</span></label>
-                <div class="controls">
-                    <select class="span2">
-                        <option>Black</option>
-                        <option>Red</option>
-                        <option>Blue</option>
-                        <option>Brown</option>
-                    </select>
+        @*<form class="form-horizontal qtyFrm pull-right">
+                <div class="control-group">
+                    <label class="control-label"><span>Color</span></label>
+                    <div class="controls">
+                        <select class="span2">
+                            <option>Black</option>
+                            <option>Red</option>
+                            <option>Blue</option>
+                            <option>Brown</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>*@
         <hr class="soft clr" />
         <p>
             @Model.product.Description

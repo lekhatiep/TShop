@@ -2,6 +2,7 @@
 @using TShopSolution.Utilities.Constant;
 @{ var culture = CultureInfo.CurrentCulture.Name;
     var urlAPI = _config[SystemConstant.AppSettings.BaseAddress]; }
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,12 +42,14 @@
 <body>
     <input type="hidden" value="@culture" id="currentLang" />
     <input type="hidden" value="@urlAPI" id="baseAdd" />
+    <input type="hidden" value="@_loc["productURL"]" id="aliasProduct" />
+
     <div id="header">
         <div class="container">
             <div id="welcomeLine" class="row">
                 @if (User.Identity.IsAuthenticated)
                 {
-    <div class="span6"><localize>Welcome</localize> ! <strong> @User.Identity.Name</strong></div>}
+                    <div class="span6"><localize>Welcome</localize> ! <strong> @User.Identity.Name</strong></div>}
                 <div class="span6"></div>
                 <div class="span6">
                     <div class="pull-right">
@@ -61,12 +64,12 @@
                         @if (User.Identity.IsAuthenticated)
                         {
 
-            <form method="post" asp-action="Logout" asp-controller="Account">
-                <button style="margin-top: 13px;" type="submit" class="">Logout</button>
-            </form> }
-        else
-        {
-<a href="/@culture/Account/Login" style="padding-right:0"><span class=""><localize>Login</localize></span></a>}
+                            <form method="post" asp-action="Logout" asp-controller="Account">
+                                <button style="margin-top: 13px;" type="submit" class="">Logout</button>
+                            </form> }
+                        else
+                        {
+                            <a href="/@culture/Account/Login" style="padding-right:0"><span class=""><localize>Login</localize></span></a>}
                     </div>
                 </div>
             </div>
@@ -99,7 +102,7 @@
                         <li class=""><a asp-route-culture="@culture" localize-content>Delivery</a></li>
                         <li class=""><a asp-route-culture="@culture" localize-content>Contact</a></li>
                         <li>
-                            <a href="@culture/cart"><span><i class="icon-shopping-cart icon-white"></i> [ <span id="number_item_header">0</span> ]</span> </a>
+                            <a href="/@culture/cart"><span><i class="icon-shopping-cart icon-white"></i> [ <span id="number_item_header">0</span> ]</span> </a>
                         </li>
                         <li class="">
                         </li>
@@ -112,6 +115,7 @@
             </div>
         </div>
     </div>
+    
     <!-- Header End====================================================================== -->
     @RenderSection("Slider", required: false)
     <div id="mainBody">

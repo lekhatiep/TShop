@@ -176,3 +176,71 @@
 input.input_search {
     border: none;
 }
+.fhQCQR {
+    display: none;
+    position: absolute;
+    bottom: 559px;
+    right: 178px;
+    padding: 16px;
+    transform: translateY(100%);
+    background-color: rgb(255, 255, 255);
+    border-radius: 6px;
+    box-shadow: rgb(179, 179, 179) 1px 1px 15px;
+}
+    .fhQCQR::before {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        right: 15px;
+        border-color: transparent transparent rgb(255, 255, 255);
+        border-style: solid;
+        border-width: 8px;
+        border-image: none 100% / 1 / 0 stretch;
+    }
+    .fhQCQR .btn-close {
+        cursor: pointer;
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        padding: 4px;
+        color: rgb(155, 155, 155);
+        font-size: 11px;
+    }
+    .fhQCQR .status {
+        display: flex;
+        -moz-box-align: center;
+        align-items: center;
+        margin: 0px;
+        color: rgb(51, 51, 51);
+        font-size: 13px;
+        white-space: nowrap;
+    }
+    .fhQCQR .btn-view-cart {
+        display: block;
+        margin-top: 16px;
+        padding: 10px 0px;
+        width: 240px;
+        color: rgb(255, 255, 255);
+        font-size: 14px;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        background-color: rgb(255, 57, 69);
+        border-radius: 4px;
+    }
+    .fhQCQR .status svg {
+        margin-right: 4px;
+        color: rgb(76, 175, 80);
+        font-size: 19px;
+    }
+.add-cart-msg-alert {
+    display: none;
+    position: absolute;
+    bottom: 369px;
+    right: 333px;
+    padding: 16px;
+    transform: translateY(100%);
+    background-color: #decaca;
+    border-radius: 6px;
+    box-shadow: rgb(179, 179, 179) 1px 1px 15px;
+}

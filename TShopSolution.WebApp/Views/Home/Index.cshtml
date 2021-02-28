@@ -64,11 +64,11 @@
                                         <div class="thumbnail">
                                             <i class="tag"></i>
                                             <a href="@url">
-                                            <img src="@urlBackend@item.Image" alt="">
+                                                <img src="@urlBackend@item.Image" alt="">
                                             </a>
                                             <div class="caption">
                                                 <h5>@item.Name</h5>
-                                                
+
                                             </div>
                                         </div>
                                     </li>
@@ -98,7 +98,7 @@
                     <div class="caption">
                         <h5>@item.Name</h5>
                         <p> 5 <span class="icon-star checked"></span> | 1000</p>
-                        
+
                         <h4 style="text-align:center">
 
                             <span class="product-discountedPrice">@Convert.ToDecimal(item.Price).ToString("#,##0") <span>&#8363;</span> </span>
@@ -112,3 +112,10 @@
 
     }
 </ul>
+@section script{
+    <script src="/js/cart.js"></script>
+    <script>
+        var cartController = new CartController();
+        cartController.initialize();
+    </script>
+}

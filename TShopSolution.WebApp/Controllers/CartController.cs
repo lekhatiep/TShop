@@ -78,19 +78,24 @@ namespace TShopSolution.WebApp.Controllers
             return Ok(listCart);
         }
 
-        public async Task<IActionResult> AddToCart(int id, string languageId)
+        public async Task<IActionResult> AddToCart(int id, string languageId, int quan)
         {
+            var product = await _productApiClient.GetById(id, languageId);
             List<CartItemViewModel> listCart = new List<CartItemViewModel>();
             var sessionCart = HttpContext.Session.GetString("CartSession");
 
-            var quan = 1;
+            //var quan = 1;
             if (sessionCart != null)
             {
                 listCart = JsonConvert.DeserializeObject<List<CartItemViewModel>>(sessionCart);
                 var itemExists = listCart.Where(x => x.ProductId == id).FirstOrDefault();
                 if (itemExists != null)
                 {
-                    itemExists.Quantity++;
+                    itemExists.Quantity += quan;
+                    if (itemExists.Quantity > product.Stock)
+                    {
+                        return Ok("101");
+                    }
                 }
                 else
                 {
@@ -117,7 +122,8 @@ namespace TShopSolution.WebApp.Controllers
                 Name = product.Name,
                 Price = product.Price,
                 Quantity = quan,
-                Image = product.Image
+                Image = product.Image,
+                Stock = product.Stock
             };
             return cartItem;
         }
